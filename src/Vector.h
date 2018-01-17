@@ -12,7 +12,7 @@
 #pragma auto_inline( on )
 
 
-#define __forceinline __attribute__((always_inline))
+#define __forceinline //__attribute__((always_inline))
 #define inline __forceinline 
 
 
@@ -146,9 +146,8 @@ namespace new_vector
             {
                 enum { COUNTER = I+1 };
 
-//				template< class ta, class tb >
-				template<  ta,  tb >
-                static inline float Dot_Prod( const ta& A, const tb& B ) 
+		template< class taA, class tbA >
+                static inline float Dot_Prod( const taA& A, const tbA& B ) 
                 {
                     return A.Evaluate( I ) * B.Evaluate( I ) +
                         recurse<COUNTER,int>::Dot_Prod( A, B );
@@ -268,13 +267,14 @@ namespace new_vector
 	///////////////////////////////////////////////////////////////////////////
 	// Векторное произведение (часть 2)
 	///////////////////////////////////////////////////////////////////////////
-/*	template< class ta_c1, class ta_c2 > inline
-		const vecexp_2< const ta_c1, const ta_c2, ta_c2::cross >
+#if 0
+	template< class ta_c1, class ta_c2 > inline
+		const vecexp_2< const ta_c1, const ta_c2 , sum /* ta_c2::cross */ sum >
 		operator ^ ( const ta_c1& Pa, const ta_c2& Pb )
 	{
-		return vecexp_2< const ta_c1, const ta_c2, ta_c1::cross >( Pa, Pb );
+		return vecexp_2< const ta_c1, const ta_c2, sum /* ta_c1::cross */ >( Pa, Pb );
 	}
-*/
+#endif /* (0) */
 
 	///////////////////////////////////////////////////////////////////////////
 	// Сумма
@@ -286,6 +286,15 @@ namespace new_vector
 			const float Evaluate( const int i, const ta_a& A, const ta_b& B )
 		{ return A.Evaluate(i) + B.Evaluate(i); }
 	};
+
+/////+++++
+	template< class ta_c1, class ta_c2 > inline
+		const vecexp_2< const ta_c1, const ta_c2 , sum /* ta_c2::cross */  >
+		operator ^ ( const ta_c1& Pa, const ta_c2& Pb )
+	{
+		return vecexp_2< const ta_c1, const ta_c2, sum /* ta_c1::cross */ >( Pa, Pb );
+	}
+/////+++++
 
 	template< class ta_c1, class ta_c2 > inline 
 		const vecexp_2< const ta_c1, const ta_c2, sum > 
