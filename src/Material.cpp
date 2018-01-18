@@ -8,6 +8,9 @@
 
 #include "AseFile.h"
 
+ /* 'strlen()' declaration;  18-01-2018 */
+#include <string.h>
+
 /* Global array to store materials */
 newManager<newMaterial> MaterialMan;
 
@@ -90,7 +93,7 @@ newResult newMaterial::CreateEmptyTexture(newEnum type,int width,int height, new
 			DiffuseMap=TextureMan.newNewItem();
 
 			/* Filling texture in */
-			DiffuseMap->CreateEmpty(width,height,c);
+			DiffuseMap->CreateEmpty4(width,height,c);
 
 			return NEW_OK;
 
@@ -431,7 +434,7 @@ float *amt;
 
 newTexture **tex;
 
-	fscanf (fpIn, "\t\t*MATERIAL_CLASS \"%s\n", &(cMaterial.chClass) );
+	fscanf (fpIn, "\t\t*MATERIAL_CLASS \"%s\n", (char* /* dummy. remove! 15:13 18-01-2018 */) &(cMaterial.chClass) );
 MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t*MATERIAL_CLASS \"%s\n", cMaterial.chClass );
 	BaseShader = cpClass;
 
@@ -463,7 +466,7 @@ MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t*MATERIAL_TRANSPARENCY %f\n", cMat
 MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t*MATERIAL_WIRESIZE %f\n", cMaterial.fWireSize);	
 	// oops ! gibt's kein Feld "Wiresize" innerhalb des "GunMaterial::" Klasses.
 
-	fscanf (fpIn, "\t\t*MATERIAL_SHADING %s\n", &(cMaterial.chShading) );
+	fscanf (fpIn, "\t\t*MATERIAL_SHADING %s\n", (char* /* dummy. remove! 15:13 18-01-2018 */)  &(cMaterial.chShading) );
 MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t*MATERIAL_SHADING %s\n", cMaterial.chShading);
 	// oops ! gibt's kein Feld "Shading" innerhalb des "GunMaterial::" Klasses.
 
@@ -475,21 +478,21 @@ MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t*MATERIAL_XP_FALLOFF %f\n", cMater
 MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t*MATERIAL_SELFILLUM %f\n", cMaterial.fSelfIllum);
 	// oops ! gibt's kein _float_ feld "SelfIllum" innerhalb des "GunMaterial::" Klasses.	
 
-	fscanf (fpIn, "\t\t*MATERIAL_FALLOFF %s\n", &(cMaterial.chFallOff));
+	fscanf (fpIn, "\t\t*MATERIAL_FALLOFF %s\n",  (char* /* dummy. remove! 15:13 18-01-2018 */)  &(cMaterial.chFallOff));
 MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t*MATERIAL_FALLOFF %s\n", cMaterial.chFallOff );
 	// oops ! gibt's kein _string_ feld "cpFalloff" innerhalb des "GunMaterial::" Klasses.	
 
-	fscanf (fpIn, "\t\t*MATERIAL_XP_TYPE %s\n", &(cMaterial.chXpType) );
+	fscanf (fpIn, "\t\t*MATERIAL_XP_TYPE %s\n",(char* /* dummy. remove! 15:13 18-01-2018 */)  &(cMaterial.chXpType) );
 MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t*MATERIAL_XP_TYPE %s\n", cMaterial.chXpType );
 	// oops ! gibt's kein _string_ feld "cpXpType" innerhalb des "GunMaterial::" Klasses.	
 
 	// starting with map . 
 
-	fscanf(fpIn, "\t\t*MAP_DIFFUSE {\n\t\t\t*MAP_NAME \"%s #%d\"\n", &(MapDissfuse.chNameStr), &(MapDissfuse.iSubNo));
+	fscanf(fpIn, "\t\t*MAP_DIFFUSE {\n\t\t\t*MAP_NAME \"%s #%d\"\n", (char* /* dummy. remove! 15:13 18-01-2018 */)  &(MapDissfuse.chNameStr), &(MapDissfuse.iSubNo));
 MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t*MAP_DIFFUSE {\n\t\t\t*MAP_NAME \"%s #%d\"\n", MapDissfuse.chNameStr, MapDissfuse.iSubNo );
 	// the same - so I ignore it 
 
-	fscanf (fpIn, "\t\t\t*MAP_CLASS \"%s\n", &(MapDissfuse.chClass));
+	fscanf (fpIn, "\t\t\t*MAP_CLASS \"%s\n",  (char* /* dummy. remove! 15:13 18-01-2018 */) &(MapDissfuse.chClass));
 MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t\t*MAP_CLASS \"%s\n", MapDissfuse.chClass);
 	// the same - so I ignore it 
 
@@ -501,7 +504,7 @@ MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t\t*MAP_SUBNO %d\n", MapDissfuse.iS
 MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t\t*MAP_AMOUNT %f\n", MapDissfuse.fMapAmount);	
 	amt = &DiffuseAmount; *amt = MapDissfuse.fMapAmount;
 
-	fscanf (fpIn, "\t\t\t*BITMAP %s\n", &(MapDissfuse.chBitmap) );
+	fscanf (fpIn, "\t\t\t*BITMAP %s\n", (char* /* dummy. remove! 15:13 18-01-2018 */)  &(MapDissfuse.chBitmap) );
 	{
 	int _ln = strlen (MapDissfuse.chBitmap) ;
 
@@ -527,7 +530,7 @@ MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t\t*MAP_AMOUNT %f\n", MapDissfuse.f
 		(*tex)->LoadFromFile(MapDissfuse.chBitmap);
 	}
 
-	fscanf (fpIn, "\t\t\t*MAP_TYPE %s\n", &(MapDissfuse.chMapType));
+	fscanf (fpIn, "\t\t\t*MAP_TYPE %s\n", (char* /* dummy. remove! 15:13 18-01-2018 */) &(MapDissfuse.chMapType));
 MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t\t*MAP_TYPE %s\n", MapDissfuse.chMapType);
 	// the same - so I ignore it 
 
@@ -575,7 +578,7 @@ MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t\t*UVW_NOISE_LEVEL %d\n", MapDissf
 MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t\t*UVW_NOISE_PHASE %f\n", MapDissfuse.fUvwNoisePhase);
 	// the same - so I ignore it 
 
-	fscanf (fpIn, "\t\t\t*BITMAP_FILTER %s\n\t\t}\n", &(MapDissfuse.chBitmap));
+	fscanf (fpIn, "\t\t\t*BITMAP_FILTER %s\n\t\t}\n", (char* /* dummy. remove! 15:13 18-01-2018 */)  &(MapDissfuse.chBitmap));
 MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t\t*BITMAP_FILTER %s\n\t\t}\n", MapDissfuse.chBitmap);
 	// the same - so I ignore it 
 

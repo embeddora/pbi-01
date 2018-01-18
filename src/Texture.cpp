@@ -6,7 +6,8 @@
 
 #include "File.h"
 
-#define USE_LIBJPEG
+/* 15:44 18-01-2018  .remove */
+#undef  USE_LIBJPEG
 
 #ifdef USE_LIBJPEG
 
@@ -49,7 +50,7 @@ void newTexture::CreateEmpty(int width,int height, newColor3ub &c)
 
 }
 
-void newTexture::CreateEmpty(int width,int height, newColor4ub &c)
+void newTexture::CreateEmpty4(int width,int height, newColor4ub &c)
 {
 	/* Сохраняем ширину и высоту */
 	Width=width;
@@ -75,7 +76,7 @@ void ExtractFileExtension(const newString &FileName,newString &Ext)
 
 	Ext=FileName.substr(i+1,FileName.size()-i-1);
 
-	_strupr((char *)Ext.c_str());
+//+++ basically uppercase and lowercase are not the same things on IX (ext2, etc), so we're skipping this transform: 	_strupr((char *)Ext.c_str());
 }
 
 /* Загружаем текстуру из файла */
@@ -541,7 +542,8 @@ newResult TGA_GetData(char *file, TGA_t *TGA)
 
 		default:
 
-			MessageBox(NULL, "Unsupported image depth.", "TGA", MB_OK);
+//+++			MessageBox(NULL, "Unsupported image depth.", "TGA", MB_OK);
+			printf("Unsupported image depth -- TGA");
 
 			break;
 	}
@@ -1007,7 +1009,7 @@ newResult newTexture::LoadAlphaFromFile(const newString &FileName)
 			Data.clear();
 
 			/* Создаём заново */
-			CreateEmpty(Width,Height,newColor4ub(255,255,255,255));
+//+++ bring back!  16:21 18012018 			CreateEmpty4(Width,Height, newColor4ub(255,255,255,255) );
 
 			src=&base.Data[0];
 

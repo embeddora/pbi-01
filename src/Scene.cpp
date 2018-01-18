@@ -133,6 +133,7 @@ AseSceneType cAseScene;
 //char cDumArr[DUM_ARRAY_LENGTH];
 
 int iMatCount = 0, iMatCountRes;
+int iDummy;/* remove! 15:23 18-01-2018 */
 
 FILE * fpIn;
 
@@ -144,12 +145,18 @@ int			iWhileRes;
 
 	fscanf ( fpIn , "*3DSMAX_ASCIIEXPORT %d\n", &(cAseFile.i3dsMaxAsciiExport));
 
-	fscanf (fpIn , "*COMMENT \"%s %s %2d,%02d - %s %s %02d %02d:%02d:%02d %4d\"\n", &(cAseFile.chAsciiExp), &(cAseFile.chVersion), &(cAseFile.iVer), &(cAseFile.iSubVer), &(cAseFile.chWeekDay), &(cAseFile.chMonth), &(cAseFile.iDate),	&(cAseFile.iHours),	&(cAseFile.iSeconds), &(cAseFile.iYear) );	
+	fscanf (fpIn , "*COMMENT \"%s %s %2d,%02d - %s %s %02d %02d:%02d:%02d %4d\"\n",
+		(char* /* remove! 15:23 18-01-2018 */) &(cAseFile.chAsciiExp), (char* /* remove! 15:23 18-01-2018 */)&(cAseFile.chVersion),
+		(int*)&(cAseFile.iVer),			(int*)&(cAseFile.iSubVer),
+		(char* /* remove! 15:23 18-01-2018 */)&(cAseFile.chWeekDay),		(char* /* remove! 15:23 18-01-2018 */)&(cAseFile.chMonth),
+		(int*)&(cAseFile.iDate),		(int*)&(cAseFile.iHours),
+		(int*)&(cAseFile.iSeconds),		(int*)&(cAseFile.iYear), (int*)&iDummy/* remove! 15:23 18-01-2018 */
+	);
 
 	fscanf (fpIn , "*SCENE {\n");
 
 
-	fscanf (fpIn , "\t*SCENE_FILENAME %s\n", &(cAseScene.chFileName) );
+	fscanf (fpIn , "\t*SCENE_FILENAME %s\n", (char* /* dummy. remove! 15:23 18-01-2018 */) &(cAseScene.chFileName) );
 
 	fscanf (fpIn , "\t*SCENE_FIRSTFRAME %d\n", &(cAseScene.iFirstFrame));
 
@@ -251,7 +258,7 @@ MaterialType cMaterial;
 	fscanf (fpIn, "\t*MATERIAL %d {\n", &iMaterialId );
 
 
-	fscanf (fpIn, "\t\t*MATERIAL_NAME \"%d - %s\n", &(cMaterial.iNameIdx), &(cMaterial.chNameStr));
+	fscanf (fpIn, "\t\t*MATERIAL_NAME \"%d - %s\n", &(cMaterial.iNameIdx), (char* /* 15:23 18-01-2018 */)  &(cMaterial.chNameStr));
 
 	sprintf (cpSafePlace, "%d - %s", cMaterial.iNameIdx, cMaterial.chNameStr);
 
@@ -392,7 +399,7 @@ GeomObjectType GeomObject;
 
 newVector3f RotVectAxis;
 
-	fscanf (fpIn, "\t*NODE_TM {\n\t\t*NODE_NAME \"%s\n", &(NodeTm.chNodeNameAgain) );
+	fscanf (fpIn, "\t*NODE_TM {\n\t\t*NODE_NAME \"%s\n", (char* /* 15:26 18-01-2018 */)  &(NodeTm.chNodeNameAgain) );
 MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL, "\t*NODE_TM {\n\t\t*NODE_NAME \"%s\n", NodeTm.chNodeNameAgain );
 
 	/*	try { */

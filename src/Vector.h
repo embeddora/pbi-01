@@ -124,13 +124,18 @@ namespace new_vector
             };
 */
 
+		    /*static inline void Assign( base<ta_dimension,T>& V, const ta& A ) //+++
+		    {
+		        recurse<0,int>::Assign( V, A );
+		    }*/
+
 
         };
 
         template< class ta_type > inline
         const base<ta_dimension,T>& operator = ( const ta_type& A )
         {
-            assigment<ta_type>::Assign( *this, A );
+//++++            assigment<ta_type>::Assign( *this, A );
             return *this;
         }
         
@@ -260,8 +265,7 @@ namespace new_vector
 		const float
 		operator | ( const ta_c1& Pa, const ta_c2& Pb )
 	{
-//		return ta_c1::dot_prod< const ta_c1, const ta_c2  >::Dot_Prod( Pa, Pb );
-
+//		return ta_c1::dot_prod< const  ta_c1,	 const  ta_c2  >	::Dot_Prod( Pa, Pb );
 	}
 
 	///////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,80 @@
 #include "Types.h"
 
+/* memcpy () */
+#include <memory.h>
+
+/* <boolean> type */
+// We don't use C, C99 , so we don't have booleand in #include <stdbool.h>. Have top cinclude it ourselves 
+typedef char boolean;
+
+/* In Linux haben wir keine <itoa(...)> , d.h. muss man selber schaffen . */
+char* itoa (unsigned long long  value,  char str[],  int radix)
+{
+    char        buf [66];
+    char*       dest = buf + sizeof(buf);
+    boolean     sign = false;
+
+    if (value == 0) {
+        memcpy (str, "0", 2);
+        return str;
+    }
+
+    if (radix < 0) {
+        radix = -radix;
+        if ( (long long) value < 0) {
+            value = -value;
+            sign = true;
+        }
+    }
+
+    *--dest = '\0';
+
+    switch (radix)
+    {
+    case 16:
+        while (value) {
+            * --dest = '0' + (value & 0xF);
+            if (*dest > '9') *dest += 'A' - '9' - 1;
+            value >>= 4;
+        }
+        break;
+    case 10:
+        while (value) {
+            *--dest = '0' + (value % 10);
+            value /= 10;
+        }
+        break;
+
+    case 8:
+        while (value) {
+            *--dest = '0' + (value & 7);
+            value >>= 3;
+        }
+        break;
+
+    case 2:
+        while (value) {
+            *--dest = '0' + (value & 1);
+            value >>= 1;
+        }
+        break;
+
+    default:            // The slow version, but universal
+        while (value) {
+            *--dest = '0' + (value % radix);
+            if (*dest > '9') *dest += 'A' - '9' - 1;
+            value /= radix;
+        }
+        break;
+    }
+
+    if (sign) *--dest = '-';
+
+    memcpy (str, dest, buf +sizeof(buf) - dest);
+    return str;
+}
+
+
 /* Слолько слов в строке. Слова разделяются пробелами */
 UINT newStrWordCount(const newString &src)
 {
@@ -82,7 +157,7 @@ newString &newStrMakeUp(newString &res,const newString &src)
 {
 	res=src;
 
-	_strupr((char *)res.c_str());
+//+++ bring back!  16:21 18012018	_strupr((char *)res.c_str());
 
 	return res;
 }
@@ -90,7 +165,7 @@ newString &newStrMakeUp(newString &res,const newString &src)
 /* Делает строку в верхний регистр */
 void newStrMakeUp(newString &res)
 {
-	_strupr((char *)res.c_str());
+//+++ bring back!  16:21 18012018	_strupr((char *)res.c_str());
 }
 
 /* Находит подстроку в строке */
@@ -100,7 +175,10 @@ char *pdest;
 
 	size_t  result,len=main.size();
 
-	pdest = strstr( main.c_str(), sub.c_str() );
+	pdest = strstr( 
+		(char*)main.c_str(), 
+		sub.c_str()
+	);
 
 	result = pdest - main.c_str();
 

@@ -33,10 +33,11 @@ BUILD_CURL=
 
 # Well, let's start to...
 
-CFLAGS=-I./src  -I./stl    -ftemplate-depth=255
+CFLAGS=-I./src  -I./stl  -IGL  -ftemplate-depth=255  -fpermissive 
 # -std=c++11
+# -fpermissive -- for <src/Scene>
 
-LDFLAGS=
+LDFLAGS= -lGL -lGLU -lglut
 
 # -g debug symbols (to explore dumped core, for instance)
 
@@ -51,9 +52,13 @@ GRBGD=./autom4te.cache  ./lintstats
 	
 
 
-OBJS=src/Mesh.o
+OBJS=src/AseFile.o src/Camera.o  src/Engine.o src/Errors.o src/Frustum.o src/Input.o src/Light.o src/LightSystem.o src/Manager.o src/Material.o src/Math.o src/Mesh.o src/Object3D.o src/Physic.o src/PhysicObject.o src/RenderObject.o src/Scene.o src/Settings.o src/Texture.o src/Types.o _main.o
 
-#src/AseFile.o src/Camera.o src/Console.o src/Engine.o src/Errors.o src/File.o src/Font.o src/Frustum.o src/GLLight.o src/Input.o src/Light.o src/LightSystem.o src/Manager.o src/Material.o src/Math.o src/Mesh.o src/Object3D.o src/Physic.o src/PhysicObject.o src/Render.osrc/RenderObject.o src/Scene.o src/Settings.o src/Sound.o src/Texture.o src/Timer.o src/Types.o src/Window.o src/_main.o
+
+# probs: src/Console.o src/File.o src/Timer.o
+# probs: src/GLLight.o src/Render.o src/Sound.o src/Window.o
+
+#src/AseFile.o src/Camera.o src/Console.o src/Engine.o src/Errors.o src/File.o src/Font.o src/Frustum.o src/GLLight.o src/Input.o src/Light.o src/LightSystem.o src/Manager.o src/Material.o src/Math.o src/Mesh.o src/Object3D.o src/Physic.o src/PhysicObject.o src/Render.o src/RenderObject.o src/Scene.o src/Settings.o src/Sound.o src/Texture.o src/Timer.o src/Types.o src/Window.o src/_main.o
 
 CC=$(PREFIX)gcc
 

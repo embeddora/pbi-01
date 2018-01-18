@@ -20,7 +20,7 @@ newInput::~newInput(void)
 void newInput::Init()
 {
 	/* Cleaning keyboard structure */
-	ZeroMemory (&keys, sizeof (Keys));
+//++++ 15:07 18-01-2018 	ZeroMemory (&keys, sizeof (Keys));
 
 	/* Keys on the keyboard are not pressed */
 	MouseButton[0]=MouseButton[1]=MouseButton[2]=FALSE;

@@ -25,3 +25,5 @@ public:
 };
 
 extern newLightSystem LightSystem;
+
+#endif /* ifnde-define include guard */

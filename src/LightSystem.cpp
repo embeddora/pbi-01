@@ -1,4 +1,4 @@
-#include "Lightsystem.h"
+#include "LightSystem.h"
 
 #include "Render.h"
 

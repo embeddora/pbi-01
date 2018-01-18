@@ -81,7 +81,7 @@ public:
 	void CreateEmpty(int width,int height, newColor3ub &c);
 
 	/* Создаёт текстуру, заполненную цветом в 4 компоненты */
-	void CreateEmpty(int width,int height, newColor4ub &c);
+	void CreateEmpty4(int width,int height, newColor4ub &c);
 
 	/* Загружаем из файла данные в зависимости от расширения */
 	newResult LoadFromFile(const newString &FileName);

@@ -39,7 +39,7 @@ void InitSettings();
 #define WM_TOGGLEFULLSCREEN (WM_USER+1)
 
 /* Обработка клавиш */
-BOOL ProcessKeys(HWND hWnd, UINT message, WPARAM wParam = 0,  LPARAM lParam = 0 );
+BOOL ProcessKeys(HWND hWnd, UINT message, /*WPARAM 15:03 18-01-2018 */ unsigned short  wParam = 0,  /* LPARAM 15:03 18-01-2018 */ unsigned long lParam = 0 );
 
 /* Структура приложения */
 extern Application NEW_application;

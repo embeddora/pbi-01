@@ -1,4 +1,4 @@
-#include "Physicobject.h"
+#include "PhysicObject.h"
 
 newManager<newPhysicObject> PhysicObjectMan;
 
