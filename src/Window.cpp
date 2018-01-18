@@ -10,9 +10,12 @@
 
 #include "File.h"
 
-#pragma warning( disable : 4311 )
+/* Declaration of memset (. . . ) */
+#include <string.h>
 
-#pragma warning( disable : 4312 )
+/* Forge. Temporary. Etc... */
+#define ZeroMemory(x, y)  memset(x, 0, y)
+
 
 NewWindow::NewWindow(void)
 {
@@ -33,18 +36,30 @@ static BOOL FirstStart;
 /* Заканчиваем приложение */
 void TerminateApplication (GL_Window* window)
 {
+#if 0
 	/* Посылаем сообщение A WM_QUIT */
 	PostMessage (window->hWnd, WM_QUIT, 0, 0);
+#else
+	printf("%s - TerminateApplication \n", __func__);
+
+#endif /* (0) */
 
 	/* Остановка основного цикла */
 	g_isProgramLooping = FALSE;
+
 }
 
 /* Переключение Fullscreen/Windowed */
 void ToggleFullscreen (GL_Window* window)
 {
+#if 0
 	/* Посылаем сообщениеA WM_TOGGLEFULLSCREEN  */
 	PostMessage (window->hWnd, WM_TOGGLEFULLSCREEN, 0, 0);
+#else
+	printf("%s - TerminateApplication \n", __func__);
+
+#endif /* (0) */
+
 }
 
 /* Пересчитать настройки окна, после переещения или изменения размера */
@@ -52,6 +67,75 @@ void ReshapeGL (int width, int height)
 {
 	MainRender.Reshape(width, height);
 }
+
+
+typedef char TCHAR;
+typedef unsigned short WORD;
+typedef unsigned long DWORD;
+
+typedef struct _POINTL {
+  long x;
+  long y;
+} POINTL, *PPOINTL;
+
+
+typedef struct _devicemode {
+  TCHAR dmDeviceName[/* CCHDEVICENAME */260];
+  WORD  dmSpecVersion;
+  WORD  dmDriverVersion;
+  WORD  dmSize;
+  WORD  dmDriverExtra;
+  DWORD dmFields;
+  union {
+    struct {
+      short dmOrientation;
+      short dmPaperSize;
+      short dmPaperLength;
+      short dmPaperWidth;
+      short dmScale;
+      short dmCopies;
+      short dmDefaultSource;
+      short dmPrintQuality;
+    };
+    struct {
+      POINTL dmPosition;
+      DWORD  dmDisplayOrientation;
+      DWORD  dmDisplayFixedOutput;
+    };
+  };
+  short dmColor;
+  short dmDuplex;
+  short dmYResolution;
+  short dmTTOption;
+  short dmCollate;
+  TCHAR dmFormName[/*CCHFORMNAME*/260];
+  WORD  dmLogPixels;
+  DWORD dmBitsPerPel;
+  DWORD dmPelsWidth;
+  DWORD dmPelsHeight;
+  union {
+    DWORD dmDisplayFlags;
+    DWORD dmNup;
+  };
+  DWORD dmDisplayFrequency;
+/*
+#if (WINVER >= 0x0400)
+  DWORD dmICMMethod;
+  DWORD dmICMIntent;
+  DWORD dmMediaType;
+  DWORD dmDitherType;
+  DWORD dmReserved1;
+  DWORD dmReserved2;
+#if (WINVER >= 0x0500) || (_WIN32_WINNT >= 0x0400)
+  DWORD dmPanningWidth;
+  DWORD dmPanningHeight;
+#endif 
+#endif 
+*/
+} DEVMODE, *PDEVMODE, *LPDEVMODE;
+
+
+#if 0
 
 /* Меняет разрешение экрана */
 BOOL ChangeScreenResolution (int width, int height, int bitsPerPixel, int frequency) 
@@ -96,6 +180,10 @@ DEVMODE curmode;
 	/* Всё получилось, возвращаем True */
 	return TRUE;
 }
+
+#endif /* (0) */
+
+#if 0
 
 /* Этот код создаёт наше OpenGL окно */
 BOOL CreateWindowGL (GL_Window* window)	
@@ -224,6 +312,10 @@ DWORD windowExtendedStyle = WS_EX_APPWINDOW;
 	/* Создание окна прошло успешно. A vot iнициализация закончится в WM_CREATE */
 	return TRUE;							
 }
+
+#endif /* (0) */
+
+#if 0
 
 /* Обработка сообщений */
 LRESULT CALLBACK WindowProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -493,6 +585,8 @@ WNDCLASSEX windowClass;
 	return TRUE;
 }
 
+#endif /* (0) */
+
 /* Структура приложения */
 Application			NEW_application;
 
@@ -501,13 +595,14 @@ GL_Window			NEW_window;
 	
 
 /* Точка входа программы (WinMain) */
-int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+//+++int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int  main (int argc, char ** argv)
 {
 /* Сообщения активны? */
 BOOL	isMessagePumpActive;
 
 /* Структура оконных сообщений */
-MSG		msg;
+//+++MSG		msg;
 	
 	/* Вывод в консоль сообщения */
 	MainConsole.Add(0,"Engine стартовал...");
@@ -524,7 +619,7 @@ MSG		msg;
 	NEW_application.className = "Engine";
 
 	/* i Instance приложения */
-	NEW_application.hInstance = hInstance;
+//+++ f.off	NEW_application.hInstance = hInstance;
 
 
 	/* Заполняем окно. Pervim delom: Убедимся что память очищена */
@@ -553,6 +648,7 @@ MSG		msg;
 
 	MainInput.Init();
 
+#if 0
 	/* Регистрируем класс для нашего окна. Регистраци провалилась? */
 	if (FALSE == RegisterWindowClass (&NEW_application))	
 	{
@@ -562,6 +658,10 @@ MSG		msg;
 		/* Завершаем приложение */
 		return -1;
 	}
+#else
+	printf ("[warning]  in %s Registering Window class skipped \n", __func__ ) ;
+#endif /* (0) */
+
 	/* Вывод в консоль сообщения */
 	MainConsole.Add(0,"Создание окна прошло успешно.");
 
@@ -579,6 +679,8 @@ MSG		msg;
 	
 	FirstStart=TRUE;
 
+
+
 	/* Цикл пока WM_QUIT не получено */
 	while (g_isProgramLooping)	
 	{
@@ -586,7 +688,12 @@ MSG		msg;
 		NEW_window.init.isFullScreen = g_createFullScreen;
 
 		/* Окно создалось успешно? */
+#if 0
 		if (TRUE == CreateWindowGL (&NEW_window))	
+#else
+		printf ("[error] '%s' creation of window <CreateWindowGL (&NEW_window)> SKIPPED  \n", __func__ );
+		if (TRUE)
+#endif /* 0 */
 		{
 			/* И так мы имеем окно с уже инициализарованым OpenGL. Запускаем инициализацию игры */
 			if (FALSE == Initialize (&NEW_window, &MainInput.keys, FirstStart))	
@@ -596,6 +703,7 @@ MSG		msg;
 			}
 			else /* Иначе (Стартуем обработку сообщений) */
 			{
+
 				/* Инициализация прошла успешно. Устанавливаем isMessagePumpActive в TRUE. */
 				isMessagePumpActive = TRUE;
 
@@ -607,17 +715,35 @@ MSG		msg;
 
 				while (TRUE == isMessagePumpActive)
 				{
+
 					/* Удачное создание окна, проверяем сообщения */
+#if 0
 					if (PeekMessage (&msg, NEW_window.hWnd, 0, 0, PM_REMOVE) != 0)
+#else
+					printf("[warning] in '%s'  simulaitng arrival of new mesage by  (PeekMessage <--PM_REMOVE ) \n", __func__);
+					if (TRUE)
+#endif /* (0) */					
 					{
+
+
 						/* Проверяем на сообщение WM_QUIT. Это сообщение A WM_QUIT? */
+#if 0
 						if (msg.message != WM_QUIT)
+#else
+						printf("[warning] in '%s'  simulaitng absence of <msg.message<--WM_QUIT> \n", __func__);
+						if (FALSE)
+#endif /* (0) */
+
 						{
+#if 0
 							/* Если нет to Переводим сообщение */
 							TranslateMessage(&msg);
 
 							/* обработаем сообщение */
 							DispatchMessage (&msg);
+#else
+							printf("[error] in '%s'  the  <TranslateMessage(&msg)/DispatchMessage(&msg)> skipped \n", __func__);
+#endif /* (0) */
 						}
 						else /* Иначе (Если сообщение WM_QUIT) */
 						{
@@ -632,8 +758,12 @@ MSG		msg;
 						/* Если окно не видимо */
 						if (NEW_window.isVisible == FALSE)	
 						{
+#if 0
 							/* Окно минимизировано, ждем сообщений */
 							WaitMessage ();	
+#else
+							printf("[error] in '%s'  the  <WaitMessage ()> skipped \n", __func__);
+#endif /* (0) */
 						}
 						else /* Если окно видимо */
 						{
@@ -648,9 +778,13 @@ MSG		msg;
 
 							/* Рисуем сцену */
 							Draw ();
+#if 0
 
 							/* Меняем буферы (Двойная буфферизация) */
 							SwapBuffers (NEW_window.hDC);
+#else
+							printf("[error] in '%s' the <SwapBuffers (NEW_window.hDC)> skipped \n", __func__);
+#endif /* (0) */
 
 							/* Увеличиваем номер кадра */
 							MainRender.Frame_Num++;
@@ -660,12 +794,18 @@ MSG		msg;
 							MainRender.Tri_per_frame = 0;
 						}
 					}
+
+
+
 				}/* while ( isMessagePumpActive == TRUE )*/
 
 				/* Вывод в консоль сообщения */
 				MainConsole.Add(0,"Конец главного цикла.");
 
+
+
 			} /* if Initialize (... */
+
 
 			/* Приложение заканчивает работу, деинициализация данных. Определенное пользователем функция. */
 			Deinitialize ();
@@ -676,7 +816,8 @@ MSG		msg;
 		else /* eсли создание окна провалилось */
 		{
 			/* Ошибка создания окна */
-			MessageBox (HWND_DESKTOP, "Error Creating OpenGL Window", "Error", MB_OK | MB_ICONEXCLAMATION);
+			//+++MessageBox (HWND_DESKTOP, "Error Creating OpenGL Window", "Error", MB_OK | MB_ICONEXCLAMATION);
+			printf (">>>>>>> [error] '%s' Error Creating OpenGL Window", __func__);
 
 			/* Завершаем цикл */
 			g_isProgramLooping = FALSE;
@@ -685,11 +826,17 @@ MSG		msg;
 
 	}/* while (isProgramLooping) */
 
+
+
 	/* Вывод в консоль сообщения */
 	MainConsole.Add(0,"Удаление созданого...выход");
 
+#if 0
 	/* Удаляем класс окна */
 	UnregisterClass (NEW_application.className, NEW_application.hInstance);		
+#else
+	printf ("[warning]  in %s UNregistering Window class skipped \n", __func__ ) ;
+#endif /* (0) */
 
 	/* Вывод в консоль сообщения */
 	MainConsole.Add(0,"Engine закончил свою работу.");
@@ -697,6 +844,8 @@ MSG		msg;
 	return 0;
 
 } /* Конец WinMain() */
+
+#if 0
 
 void newMouseToCenter()
 {
@@ -718,3 +867,4 @@ RECT rcScreen;
 
 	MainInput.MousePos = MainInput.MouseCenter;
 }
+#endif /* 0 */

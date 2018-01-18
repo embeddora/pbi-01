@@ -51,12 +51,11 @@ LDFLAGS= -lGL -lGLU -lglut
 GRBG=./src/*.o ./src/*~ ./*.o ./*~      
 
 OBJS=src/AseFile.o src/Camera.o  src/Engine.o src/Errors.o src/Frustum.o src/Input.o src/Light.o src/LightSystem.o src/Manager.o src/Material.o src/Math.o src/Mesh.o src/Object3D.o src/Physic.o src/PhysicObject.o src/RenderObject.o src/Scene.o src/Settings.o src/Texture.o src/Types.o  \
-src/Timer.o   src/File.o  src/GLLight.o  src/Render.o  src/Console.o
+src/Timer.o   src/File.o  src/GLLight.o  src/Render.o  src/Console.o   src/Window.o
 
 
-# probs: _main.o -- 'main' a subject for total rework
-# probs: src/Window.o
-# probs: src/Sound.o -- reine Windows Sache, muss man vollkommen ersetzen
+# probs: _main.o	-- 'main' a subject for total rework
+# probs: src/Sound.o	-- reine Windows Sache, muss man vollkommen ersetzen
 
 # a store: src/AseFile.o src/Camera.o src/Console.o src/Engine.o src/Errors.o src/File.o src/Font.o src/Frustum.o src/GLLight.o src/Input.o src/Light.o src/LightSystem.o src/Manager.o src/Material.o src/Math.o src/Mesh.o src/Object3D.o src/Physic.o src/PhysicObject.o src/Render.o src/RenderObject.o src/Scene.o src/Settings.o src/Sound.o src/Texture.o src/Timer.o src/Types.o src/Window.o src/_main.o
 

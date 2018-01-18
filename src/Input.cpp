@@ -16,11 +16,18 @@ newInput::~newInput(void)
 {
 }
 
+/* Declaration of memset (. . . ) */
+#include <string.h>
+
+/* Forge. Temporary. Etc... */
+#define ZeroMemory(x, y)  memset(x, 0, y)
+
+
 /* Initialization */
 void newInput::Init()
 {
 	/* Cleaning keyboard structure */
-//++++ 15:07 18-01-2018 	ZeroMemory (&keys, sizeof (Keys));
+	ZeroMemory (&keys, sizeof (Keys));
 
 	/* Keys on the keyboard are not pressed */
 	MouseButton[0]=MouseButton[1]=MouseButton[2]=FALSE;
