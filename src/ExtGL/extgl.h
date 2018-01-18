@@ -2443,8 +2443,11 @@ extern wglFreeMemoryNVPROC wglFreeMemoryNV;
 typedef void * (APIENTRY * glXAllocateMemoryNVPROC) (GLsizei size, GLfloat readFrequency, GLfloat writeFrequency, GLfloat priority);
 typedef void (APIENTRY * glXFreeMemoryNVPROC) (void *pointer);
 
+#if (0)
+// 19:41 18012018
 extern glXAllocateMemoryNVPROC glXAllocateMemoryNV;
 extern glXFreeMemoryNVPROC glXFreeMemoryNV;
+#endif /* (0) */
 
 #endif /* WIN32 */
 
@@ -3751,8 +3754,11 @@ extern glGetTexBumpParameterfvATIPROC glGetTexBumpParameterfvATI;
 typedef GLuint (APIENTRY * glGenFragmentShadersATIPROC) (GLuint range);
 typedef void (APIENTRY * glBindFragmentShaderATIPROC) (GLuint id);
 typedef void (APIENTRY * glDeleteFragmentShaderATIPROC) (GLuint id);
+#if (0)
+// 19:42 18012018 
 typedef void (APIENTRY * glBeginFragmentShaderATIPROC) (GLvoid);
 typedef void (APIENTRY * glEndFragmentShaderATIPROC) (GLvoid);
+#endif /* (0) */
 typedef void (APIENTRY * glPassTexCoordATIPROC) (GLuint dst, GLuint coord, GLenum swizzle);
 typedef void (APIENTRY * glSampleMapATIPROC) (GLuint dst, GLuint interp, GLenum swizzle);
 typedef void (APIENTRY * glColorFragmentOp1ATIPROC) (GLenum op, GLuint dst, GLuint dstMask, GLuint dstMod, GLuint arg1, GLuint arg1Rep, GLuint arg1Mod);
@@ -3766,8 +3772,11 @@ typedef void (APIENTRY * glSetFragmentShaderConstantATIPROC) (GLuint dst, const 
 extern glGenFragmentShadersATIPROC glGenFragmentShadersATI;
 extern glBindFragmentShaderATIPROC glBindFragmentShaderATI;
 extern glDeleteFragmentShaderATIPROC glDeleteFragmentShaderATI;
+#if (0)
+// 19:42 18012018 
 extern glBeginFragmentShaderATIPROC glBeginFragmentShaderATI;
 extern glEndFragmentShaderATIPROC glEndFragmentShaderATI;
+#endif /* (0) */
 extern glPassTexCoordATIPROC glPassTexCoordATI;
 extern glSampleMapATIPROC glSampleMapATI;
 extern glColorFragmentOp1ATIPROC glColorFragmentOp1ATI;

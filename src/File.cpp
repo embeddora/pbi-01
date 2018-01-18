@@ -2,7 +2,7 @@
 
 #include "Console.h"
 
-#include <io.h>
+#include <sys/io.h>
 
 struct newPackFile
 {
@@ -16,7 +16,7 @@ static std::list<newPackFile> PackSystem;
 /* UnIMP parts */
 extern "C"
 {
-	#include "unimp\unimp.h"
+	#include "unimp/unimp.h"
 }
 
 /* File System Parts */
@@ -29,6 +29,7 @@ void ParsePackFile(newPackFile &pfile)
 
 void ParsePathForPackFiles(newString DirPath)
 {
+#if 0
 	_finddata_t fdata;
 
 	long hFile;
@@ -76,6 +77,9 @@ void ParsePathForPackFiles(newString DirPath)
 	} while (_findnext( hFile, &fdata ) == 0);
 
 	_findclose(hFile);
+#else
+	printf("[error] on cirrent platf. the '%s' yet to be defined on \n", __func__);
+#endif /* (0) */
 }
 
 void InitFileSystem(newString Path)
@@ -174,7 +178,7 @@ newResult newFile::Open(const newString &FileName, newEnum op, BOOL Binary, newE
 
 				for (std::list<newPackFile>::iterator it=PackSystem.begin(); it!=PackSystem.end(); it++)
 				{
-					int error = extract_file((char *)(*it).Name.c_str(), 0, &pMemBuf, (char *)FileName.c_str(), &SizeInBytes);
+					int error = extract_file((char *)(*it).Name.c_str(), 0, &pMemBuf, (char *)FileName.c_str(), (long unsigned int *) &SizeInBytes);
 
 					if (!error)
 
@@ -221,7 +225,12 @@ void newFile::Close()
 
 	if (pMemBuf)
 	{
+#if 0
 		delete pMemBuf;
+#else
+	/* 18:39 01182018 */
+	printf("[error] in '%s' don't know how to 'delete(void*)' \n", __func__);
+#endif /* (0) */
 
 		pMemBuf = NULL;
 	}

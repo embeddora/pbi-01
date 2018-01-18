@@ -3,21 +3,21 @@
 #include "Render.h"
 
 /* Глобальный массив шрифтов */
-Fonts Font;
+Fonts Fontchen;
 
 /* Создание нового шрифта, возращает индекс */
 newFont *newNewFont(const newString &Name)
 {
 	/* Увеличиваем массив, добавляем в конец */
-	Font[Name]=newFont();
+	Fontchen[Name]=newFont();
 
 	/* Возращаем индекс последнего элемента */
-	return &Font[Name];
+	return &Fontchen[Name];
 }
 
 newFont *newDeleteFont(const newString &Name)
 {
-	Font.erase(Name);
+	Fontchen.erase(Name);
 
 	return NULL;
 }
@@ -136,9 +136,9 @@ BOOL newFont::LoadTextureAndCheckSpace(const newString &FileName,const newString
 /* Функция выбора шрифта по имени */
 BOOL newSelectFont(const newString &Name)
 {
-	if (Font.find(Name)!=Font.end()) 
+	if (Fontchen.find(Name)!=Fontchen.end()) 
 	{
-		MainRender.CurFont=&Font[Name];
+		MainRender.CurFont=&Fontchen[Name];
 
 		return TRUE;
 	}
@@ -147,7 +147,7 @@ BOOL newSelectFont(const newString &Name)
 
 BOOL newLoadFontAndCheckSpace(const newString &FileName, const newString &FontName, BYTE Zero)
 {
-	if (Font.find(FontName)==Font.end())
+	if (Fontchen.find(FontName)==Fontchen.end())
 	{
 		MainRender.CurFont=newNewFont(FontName);
 

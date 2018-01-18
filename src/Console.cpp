@@ -8,6 +8,12 @@
 
 #include <time.h>
 
+// Prototypes va_start(..),  va_end(..)
+#include <stdarg.h>
+
+// Prototypes strlen(..)
+#include <string.h>
+
 /* Консольные процедуры */
 
 /* Help - помощь. Выводит список всех команд и переменных. */
@@ -69,7 +75,7 @@ void conHelp(const newString &s)
 	/* Тоже самое с командами */
 	MainConsole.Add(NEW_SYSMESS,"Команды:");
 
-	for (it=MainConsole.CMD.begin();it!=MainConsole.CMD.end();it++)
+	for (CMDS::iterator it=MainConsole.CMD.begin();it!=MainConsole.CMD.end();it++)
 	{
 		switch ((*it).second.Type)
 		{
@@ -85,6 +91,8 @@ void conHelp(const newString &s)
 		}
 	}
 }
+
+
 
 /* Изменение видео настроек */
 void conVideoApply(const newString &s)
@@ -107,12 +115,19 @@ void conVideoRestart(const newString &s)
 {
 	MainConsole.Add(0,"Рестарт видео режима...");
 
+#if 0
 	PostMessage (NEW_window.hWnd, WM_QUIT, 0, 0);
+#else
+	printf("[error] in %s message 'WM_QUIT' was not sent to 'NEW_window.hWnd' \n", __func__);
+#endif /* (0) */
 }
+
 
 
 /* Глобальная переменная */
 newConsole MainConsole;
+
+
 
 /* Конструктор */
 newConsole::newConsole(void)
@@ -133,7 +148,7 @@ newConsole::newConsole(void)
 	Line=0;
 
 	/* Позиция в истории команд нулевая */
-	HistoryPos=NULL;
+	HistoryPos=(Consoles::iterator)NULL;
 
 	/* Добавляем основные команды консоли:  Угол обзора (Quake вида) */
 	AddCMD("FoV",NEW_VARIABLE_FLOAT,&MainSettings.FOV,&conVideoApply);
@@ -204,11 +219,17 @@ newConsole::~newConsole(void)
 	
 }
 
+
+
 /* Фукнция добавления команды */
 BOOL newConsole::AddCMD(const newString &_Name, newEnum _Type, void *_Link, void (*_Adress)(const newString &Command))
 {
+#if 0
 	/* Все команды преобразуются в верхний регистр */
 	_strupr((char *)_Name.c_str());
+#else
+	printf("[warning] skipped '_strupr' in %s. Stromg is: %s \n", __func__, (char *)_Name.c_str() );
+#endif /* (0) */
 
 	CMDS::iterator it;
 
@@ -230,6 +251,7 @@ newConCommand k;
 
 	return TRUE;
 }
+
 
 /* Запускаем команду */
 BOOL newConsole::ExecCMD(const newString &cmd)
@@ -395,6 +417,8 @@ newString command, value;
 /* буфер для обработки сообщений */
 char mess[16384];
 
+
+
 /* Функция добавляем в консоль сообщение */
 void newConsole::Add(UINT Level, const char *Message,...)
 {
@@ -457,6 +481,7 @@ void newConsole::Add(UINT Level, const char *Message,...)
 		MainRender.DrawConsole();
 }
 
+
 /* Обрабатываем клавиши */
 void newConsole::ProcessKey(DWORD Key)
 {
@@ -503,10 +528,11 @@ void newConsole::ProcessKey(DWORD Key)
 	/* Клавиша: Esc. Действие: Очищаем строку */
 	if (Key==27) Current.clear();
 
+
 	/* Клавиша: Стрелка вверх. Действие: Копируем из истории команду выше */
 	if (Key==38)
 	{
-		if (HistoryPos!=NULL)
+		if (HistoryPos!=(Consoles::iterator) NULL)
 
 			if (HistoryPos!=CMDHistory.begin())
 			{
@@ -516,10 +542,13 @@ void newConsole::ProcessKey(DWORD Key)
 			}
 	}
 
+
+
+
 	/* Клавиша: Стрелка вниз. Действие: Копируем из истории команду ниже */
 	if (Key==40)
 	{
-		if (HistoryPos!=NULL)
+		if (HistoryPos!=(Consoles::iterator)NULL)
 
 			if (HistoryPos!=CMDHistory.end())
 			{
@@ -536,6 +565,8 @@ void newConsole::ProcessKey(DWORD Key)
 				Current.clear();
 	}
 
+
+
 	/* Клавиша: Tab. Действие: Заканчиваем команду или выводим список похожих */
 	if (Key==9)
 
@@ -545,6 +576,8 @@ void newConsole::ProcessKey(DWORD Key)
 
 	/* Количество букв по вертикали половины экрана. При Page Up, Page Down считается страницой */
 	UINT ConsolePage=MainRender.FontDisplayHeight/32-1;
+
+
 
 	/* Клавиша: Page Up. Действие: Листаем вверх на одну страницу */
 	if (Key==33)
@@ -572,7 +605,12 @@ void newConsole::ProcessKey(DWORD Key)
 	{
 		Line=0;
 	}
+#if 0
+#endif /* (0) */
+
 }
+
+
 
 /* Завершение буквеного представления команды */
 void newConsole::AutoCompleteCMD()
@@ -627,7 +665,7 @@ void newConsole::UpdateCut(const newString &src)
 
 		return;
 
-	newStringList::iterator safepos=NULL;
+	newStringList::iterator safepos=(newStringList::iterator) NULL;
 
 	newString t,p;
 
@@ -692,4 +730,5 @@ void newConsole::UpdateCutten()
 		it++;
 	}
 }
+
 

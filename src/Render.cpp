@@ -7,13 +7,14 @@
 #include "GLLight.h"
 
 /* An interface to special substitute of certain parts OpenGL32 and GLu32 libraries */
-#include "ExtGL/ExtGL.h"
+#include "ExtGL/extgl.h"
 
-/* Odd way to plug the OpenGL32  library in. (Acting this way we avoid doig it in  Project->Settings->...) */
-#pragma comment( lib, "opengl32.lib" )
+// Declaration of va_end() , va_start()
+#include <stdarg.h>
 
-/* Odd way to plug the GLu32 library */
-#pragma comment( lib, "glu32.lib" )
+// Declaration of strlen() 
+#include <string.h>
+
 
 /* Save vsync state. Сохранение состояния vsync */
 int SafeSwapInterval = 0;
@@ -55,7 +56,7 @@ int S = N;
 #endif
 
 
-round2(GLint n)
+int round2(GLint n)
 {
 GLint m;
 	
@@ -1088,6 +1089,7 @@ GL_Window *safewindow;
 /* Устанавливаем OpenGL */
 BOOL newRender::SetupOpenGL(GL_Window *window)
 {
+#if 0
 	safewindow=window;
 
 	/* pfd указывает Windows как устанавливать OpenGL */
@@ -1241,14 +1243,14 @@ BOOL newRender::SetupOpenGL(GL_Window *window)
 
 	Extensions=(char *)glGetString(GL_EXTENSIONS);
 
-	if (wglGetExtensionsStringARB)//+++ added by mazukevich
+	if (wglGetExtensionsStringARB)//+++ added !
 	{
 		Extensions += (char *)wglGetExtensionsStringARB(window->hDC);
 
 		MainConsole.Add(0,"Расширения OpenGL, поддерживаемые рендерером: %s",Extensions.c_str());
 	}
 
-	if (wglGetSwapIntervalEXT)//+++ added by mazukevich
+	if (wglGetSwapIntervalEXT)//+++ added !
 	{
 		SafeSwapInterval = wglGetSwapIntervalEXT();
 
@@ -1256,6 +1258,10 @@ BOOL newRender::SetupOpenGL(GL_Window *window)
 	}
 	
 	MainConsole.Add(0,"Отключение vsync.");
+#else
+	/* 19:08 01182018 */
+	printf("[error] in '%s' nothing is done - all is skipped  \n", __func__);
+#endif /* (0) */
 
 	return TRUE;
 }
@@ -1263,6 +1269,7 @@ BOOL newRender::SetupOpenGL(GL_Window *window)
 /* Уничтожение OpenGL окна, Уничтожаем OpenGL окно и освобождаем ресурсы */
 BOOL newRender::DestroyWindowGL (GL_Window* window)	
 {
+#if 0
 	if (wglGetSwapIntervalEXT) 
 
 		/* Востанавливаем Vsync */
@@ -1319,6 +1326,11 @@ BOOL newRender::DestroyWindowGL (GL_Window* window)
 
 	/* Вывод в консоль сообщения */
 	MainConsole.Add(0,"Востанавливаем разрешение экрана.");
+
+#else
+	/* 19:08 01182018 */
+	printf("[error] in '%s' nothing is done - all is skipped  \n", __func__);
+#endif /* (0) */
 
 	/* Возращаем True */
 	return TRUE;
@@ -1445,7 +1457,7 @@ void newRender::TextureUpload(newTexture *tex)
 	/* Если поддерживается автоматическая генерация мипмапов, то генерируем их на видеокарте */
 	if (tex->GenerateMipMap)
 
-//+++ this string is commented out by mazukevich:  if ((extgl_Extensions.OpenGL14)||(extgl_Extensions.SGIS_generate_mipmap))
+//+++ this string is commented out by me:  if ((extgl_Extensions.OpenGL14)||(extgl_Extensions.SGIS_generate_mipmap))
 
 			if (IsPow2(tex->Width) && IsPow2(tex->Height))
 			{
@@ -1804,7 +1816,7 @@ float   cwy;
 			glTexCoord2f(cx+(font->FTrim[loop][0])/256.0f,cy);
 
 			glVertex2i(0,0);
-		}//+++ ATTENTION: this parenthesis is added by mazukevich. Probably later gonna remove it, but for now - let it stay here 
+		}//+++ ATTENTION: this parenthesis is added by me. Probably later gonna remove it, but for now - let it be here 
 
 		/* Закончили рисовать */
 		glEnd();
@@ -2041,7 +2053,7 @@ void newRender::RestoreAll()
 	CompileDispalyLists();
 
 	/* Востанавливаем шрифты */
-	for (Fonts::iterator it2=Font.begin();it2!=Font.end();it2++)
+	for (Fonts::iterator it2=Fontchen.begin();it2!=Fontchen.end();it2++)
 	{
 		newFont *font = &(*it2).second;
 
@@ -2079,8 +2091,12 @@ void newRender::CreateConsole()
 		/* Загружаем */
 		if (MainConsole.Tex->LoadFromFile(MainSettings.CONSOLE.TEXTURE_FILE)!=NEW_OK)
 		{
+#if 0
 			/* Если не удалось, то делаем пустую */
 			MainConsole.Tex->CreateEmpty(16,16,MainSettings.CONSOLE.COLOR);
+#else
+			printf("[error] in %s 'MainConsole.Tex->CreateEmpty' skipped ", __func__);
+#endif /* (0) */
 		}
 		/* Загружаем в видео память */
 		TextureUpload(MainConsole.Tex);
@@ -2259,9 +2275,14 @@ void newRender::DrawConsole()
 	if (MainSettings.CONSOLE.STATUS==NEW_CONSOLE_FULLSCREEN)
 	{
 		glFlush();
+#if 0
 
 		/* Меняем буферы (Двойная буфферизация) */
 		SwapBuffers (safewindow->hDC);
+#else
+		/* 19:10 01182018 */
+		printf("[error] in '%s' 'SwapBuffers (safewindow->hDC);' skipped \n", __func__);
+#endif /* (0) */
 	}
 }
 

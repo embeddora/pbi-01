@@ -2,6 +2,33 @@
 
 #include "Console.h"
 
+
+typedef union _LARGE_INTEGER {
+  struct {
+    unsigned long LowPart;
+    unsigned long  HighPart;
+  };
+  struct {
+    unsigned long LowPart;
+    unsigned long  HighPart;
+  } u;
+  long long QuadPart;
+} LARGE_INTEGER, *PLARGE_INTEGER;
+
+void QueryPerformanceFrequency(
+   LARGE_INTEGER *lpFrequency
+)
+{
+	printf("[error] on cirrent platf. the '%s' yet to be defined on \n", __func__);
+}
+
+void QueryPerformanceCounter(
+  LARGE_INTEGER *lpPerformanceCount
+)
+{
+	printf("[error] on cirrent platf. the '%s' yet to be defined on \n", __func__);
+}
+
 newTimer::newTimer(void)
 {
 

@@ -1,6 +1,6 @@
 #include "GLLight.h"
 
-#include <GL\gl.h>
+#include <GL/gl.h>
 
 const UINT MAX_LIGHT = 8;
 

@@ -560,7 +560,7 @@ void newScene::SortObjects()
 
 				std::swap(*it,*to);
 
-	for (/*std::list<newObject3D *>::iterator*/ it = ObjList.begin(); it!=ObjList.end();it++)
+	for (std::list<newObject3D *>::iterator it = ObjList.begin(); it!=ObjList.end();it++)
 
 		for (std::list<newObject3D *>::iterator to = it; to!=ObjList.end();to++)
 
