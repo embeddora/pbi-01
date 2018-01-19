@@ -2,6 +2,8 @@
 
 #include "Engine.h"
 
+#include "Font.h"
+
 #include "GL/gl.h"
 
 #include "GL/glu.h"
@@ -12,12 +14,9 @@
 
 //++#include "Sound.h" 
 
-#include "stdio.h"
 
 #include <cstdio>
 
-
-using namespace std;
 
 float fFPS = 0;
 
@@ -520,7 +519,10 @@ BOOL ProcessKeys(
 		std::printf("[warning]  PostMessage (hWnd, WM_TOGGLEFULLSCREEN, 0, 0) \n");
 #endif /* (0) */
 
+#undef USE_LIBJPEG
+#ifdef USE_LIBJPEG
 	if (wParam==123) newSaveScreenToJPG();
+#endif /* (0) */
 
 	if (wParam==49) 
 	{

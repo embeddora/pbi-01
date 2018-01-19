@@ -113,11 +113,19 @@ newResult newTexture::LoadFromFile(const newString &FileName)
 	{
 		if (Ext=="TGA")
 			
+#if 0
 			return LoadTGAFile(FileName);
+#else
+			printf("[error] %s, skipped LoadTGAFile(FileName)\n", __func__);
+#endif /* (0) */
 		
 		if (Ext=="JPG")
 			
+#if 0
 			return LoadJPGFile(FileName);
+#else
+			printf("[error] %s, skipped LoadJPEGFile(FileName)\n", __func__);
+#endif /* (0) */
 	}
 
 	catch (...)
@@ -611,6 +619,7 @@ newResult res;
 }
 
 #ifdef USE_LIBJPEG
+
 
 newFile *pFile = NULL;
 

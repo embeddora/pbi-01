@@ -51,7 +51,7 @@ LDFLAGS= -lGL -lGLU -lglut                -lcstdc++
 
 GRBG=./src/*.o ./src/*~   src/unimp/*.o src/unimp/*~             ./*.o ./*~
 
-OBJS=src/unimp/unimp.o        src/AseFile.o src/Camera.o  src/Engine.o src/Errors.o src/Frustum.o src/Input.o src/Light.o src/LightSystem.o src/Manager.o src/Material.o src/Math.o src/Mesh.o src/Object3D.o src/Physic.o src/PhysicObject.o src/RenderObject.o src/Scene.o src/Settings.o src/Texture.o src/Types.o  \
+OBJS=src/unimp/unimp.o        src/AseFile.o src/Camera.o  src/Engine.o src/Errors.o src/Font.o src/Frustum.o src/Input.o src/Light.o src/LightSystem.o src/Manager.o src/Material.o src/Math.o src/Mesh.o src/Object3D.o src/Physic.o src/PhysicObject.o src/RenderObject.o src/Scene.o src/Settings.o src/Texture.o src/Types.o  \
 src/Timer.o   src/File.o  src/GLLight.o  src/Render.o  src/Console.o   src/Window.o   src/Redraw.o  
 
 SRCS=src/AseFile.cpp src/Camera.cpp  src/Engine.cpp src/Errors.cpp src/Frustum.cpp src/Input.cpp src/Light.cpp src/LightSystem.cpp src/Manager.cpp src/Material.cpp src/Math.cpp src/Mesh.cpp src/Object3D.cpp src/Physic.cpp src/PhysicObject.cpp src/RenderObject.cpp src/Scene.cpp src/Settings.cpp src/Texture.cpp src/Types.cpp  \

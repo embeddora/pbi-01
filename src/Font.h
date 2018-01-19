@@ -44,7 +44,9 @@ public:
 
 // ֳכמבאכüםûי לאססטג רנטפעמג
 typedef std::map<newString,newFont> Fonts;
+
 extern Fonts Fontchen;
+
 // ֽמגûי רנטפע
 newFont *newNewFont(const newString &Name);
 newFont *newDeleteFont(const newString &Name);

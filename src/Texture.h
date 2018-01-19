@@ -114,7 +114,7 @@ typedef newManager<newTexture>::Items Textures;
 extern Textures &Texture;
 
 /* Запись экрана в файл JPG; Используется для создания ScreenShot'ов */
-BOOL newSaveScreenToJPG();
+//BOOL newSaveScreenToJPG();
 
 
 #endif /* ifndef-define include guard */
