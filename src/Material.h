@@ -21,6 +21,8 @@ public:
 	/* Имя материала */
 	newString Name;
 
+	void memcopy(void*, void*, int);
+
 	newString BaseShader;
 
 	UINT Ref;
@@ -112,6 +114,10 @@ public:
 private:
 
 	int NumSubMat;
+
+
+
+        
 };
 
 /* Менеджер */

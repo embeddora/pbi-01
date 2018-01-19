@@ -4,6 +4,8 @@
 
 #include <sys/io.h>
 
+namespace std { using namespace __gnu_cxx; }
+
 struct newPackFile
 {
 	newString Name;

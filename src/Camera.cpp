@@ -2,6 +2,10 @@
 
 #include "Settings.h"
 
+#include "stdio.h"
+
+namespace std { using namespace __gnu_cxx; }
+
 /* Глобальный массив */
 Cameras Camera;
 

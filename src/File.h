@@ -7,8 +7,6 @@
 
 #include "Console.h"
 
-void memcpy(void *, void *, size_t);
-
 class newFile
 {
 public:

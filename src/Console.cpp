@@ -14,6 +14,8 @@
 // Prototypes strlen(..)
 #include <string.h>
 
+namespace std { using namespace __gnu_cxx; }
+
 /* Консольные процедуры */
 
 /* Help - помощь. Выводит список всех команд и переменных. */

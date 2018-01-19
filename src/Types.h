@@ -59,6 +59,7 @@ const float	NEW_EPSILON	= 0.0001f;
 typedef unsigned int UINT;
 typedef unsigned char BYTE;
 //+++typedef unsigned __int64 UINT64;
+#define  __int64
 typedef unsigned long UINT64;
 typedef int BOOL;
 typedef unsigned long DWORD;
@@ -179,6 +180,8 @@ newString newIntToStr(int i);
 /* The following are the operations with strings: */
 
 newString &newStrMakeUp(newString &res,const newString &src);
+
+void* memcpy(void* __dest, const void* __src, int __n);
 
 void newStrMakeUp(newString &res);
 

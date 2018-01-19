@@ -10,14 +10,15 @@
 
 #include "Types.h" 
 
+/*
 #include "Fmod/fmod.h"
 
 #include "Fmod/fmod_errors.h"
+*/
 
-#pragma comment( lib, "src/Fmod/fmodvc.lib" )
 
 /* for std::set */
-#include "../stl/stl_set.h"
+//+++ 19.01.2018 #include "./stl/stl_set.h"
 
 class CCustomSound
 {

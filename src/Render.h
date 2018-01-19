@@ -15,6 +15,8 @@
 
 #include "Light.h"
 
+
+
 struct newDisplayList
 {
 	UINT Index;

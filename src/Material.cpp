@@ -11,6 +11,8 @@
  /* 'strlen()' declaration;  18-01-2018 */
 #include <string.h>
 
+
+
 /* Global array to store materials */
 newManager<newMaterial> MaterialMan;
 
@@ -57,6 +59,19 @@ newMaterial::newMaterial(const newString &_Name,const newString &_DiffuseMap)
 newMaterial::~newMaterial(void)
 {
 
+}
+
+void newMaterial::memcopy(void* __dest,  void* __src, int __n)
+{
+int i;
+char *d, *s;
+
+	d = (char *)__dest;
+	s = (char *)__src;
+	
+	for (i=0; i<__n; i++)
+	    d[i] = s[i];
+	    
 }
 
 /* Texture of type 'type' creation with 3 component color */ 
@@ -508,7 +523,7 @@ MainConsole.Add(NEW_ASEDBG_MESSAGE_LEVEL,"\t\t\t*MAP_AMOUNT %f\n", MapDissfuse.f
 	{
 	int _ln = strlen (MapDissfuse.chBitmap) ;
 
-		memcpy (MapDissfuse.chBitmap, &((MapDissfuse.chBitmap)[1]), strlen(MapDissfuse.chBitmap) -2 );
+		memcopy (MapDissfuse.chBitmap, &((MapDissfuse.chBitmap)[1]), strlen(MapDissfuse.chBitmap) -2 );
 
 		(MapDissfuse.chBitmap)[_ln - 1 - 1] = '\0';
 

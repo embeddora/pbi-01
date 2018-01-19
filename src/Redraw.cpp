@@ -1,4 +1,6 @@
-#include "src/Engine.h"
+#include "Types.h" 
+
+#include "Engine.h"
 
 #include "GL/gl.h"
 
@@ -6,9 +8,16 @@
 
 #include <math.h>
 
-#include "src/Math.h"
+#include "Math.h"
 
-#include "src/Sound.h" 
+//++#include "Sound.h" 
+
+#include "stdio.h"
+
+#include <cstdio>
+
+
+using namespace std;
 
 float fFPS = 0;
 
@@ -70,11 +79,19 @@ float CubeSpeed=3;
 
 float angle=0;
 
+
+
+#if 0
 newVector3f Ax(1,2,3);
-
 newQuaternionf Rot(0,newVector3f(0,1,0));
-
 newQuaternionf CubeAccel(CubeSpeed,Ax);
+#else
+/* printf("[error] in '%s' initialization 'newVector3f Ax(1,2,3);' not done \n", __func__);
+printf("[error] in '%s' initialization 'newQuaternionf Rot(0,newVector3f(0,1,0))' not done \n", __func__);
+printf("[error] in '%s' initialization 'newQuaternionf CubeAccel(CubeSpeed,Ax);' not done \n", __func__);
+*/
+#endif /* (0) */
+
 
 UINT RenderPath=1;
 
@@ -92,14 +109,14 @@ void RenderSky();
 
 newScene myScene;
 
-
+/*
 CSoundManager mSoundManager;
 
 CCustomSound* pSoundFirst = NULL;
 CCustomSound* pSoundSecond = NULL;
 CCustomSound* pSoundThird = NULL;
 CCustomSound* pSound = NULL;
-
+*/
 newLight *myLight;
 
 void InitSettings()
@@ -124,10 +141,10 @@ void InitSettings()
 	MainSettings.LoadFromFile("Cfg\\default.cfg");
 
 	myScene.LoadSceneFromAseFile("Scene\\LesNazis.ASE ");
-
+/*
 	mSoundManager.Init();	
 
-//	pSound = new CCustomSound();
+
 
 	pSoundFirst = mSoundManager.Precache_Stream("Sound\\Bike.wav", true);
 	pSoundSecond = mSoundManager.Precache_Stream("Sound\\Helicopter.wav", true);
@@ -141,13 +158,9 @@ void InitSettings()
 	mSoundManager.Play(pSoundSecond);
 	mSoundManager.Play(pSoundThird);
 
-	//pSound = pSoundFirst;
-	//mSoundManager.Play(pSound);
 	mSoundManager.Play(pSoundFirst);
+*/
 
-/*	mSoundManager.Stop(pSound);
-	mSoundManager.Pause(pSound);
-	mSoundManager.Close(&pSound); */
 }
 
 
@@ -253,53 +266,65 @@ void Update (UINT64 &DeltaTime)
 	// 'w' - 
 	if (MainInput.keys.keyDown[87])	
 	{
+/*
 mSoundManager.Play(pSoundFirst);
 mSoundManager.Pause(pSoundSecond);
 mSoundManager.Pause(pSoundThird);
+*/
 MainRender.CurrentCamera->Move(NEW_CAMERA_FORWARD, 1);
 	}
 
 	// 's' - 
 	if (MainInput.keys.keyDown[83])
 	{
+/*
 mSoundManager.Play(pSoundFirst);
 mSoundManager.Pause(pSoundSecond);
 mSoundManager.Pause(pSoundThird);
+*/
 MainRender.CurrentCamera->Move(NEW_CAMERA_BACK, 1);
 	}
 
 	// 'd' - 
 	if (MainInput.keys.keyDown[65])
 	{
+/*
 mSoundManager.Pause(pSoundFirst);
 mSoundManager.Play(pSoundSecond);
 mSoundManager.Pause(pSoundThird);
+*/
 MainRender.CurrentCamera->Move(NEW_CAMERA_LEFT, 1);
 	}
 	// 'a' - 
 	if (MainInput.keys.keyDown[68])
 	{
+/*
 mSoundManager.Pause(pSoundFirst);
 mSoundManager.Play(pSoundSecond);
 mSoundManager.Pause(pSoundThird);
+*/
 MainRender.CurrentCamera->Move(NEW_CAMERA_RIGHT, 1);
 	}
 
 	// 'b' - up
 	if (MainInput.keys.keyDown[66])
 	{
+/*
 mSoundManager.Pause(pSoundFirst);
 mSoundManager.Pause(pSoundSecond);
 mSoundManager.Play(pSoundThird);
+*/
 MainRender.CurrentCamera->Move(NEW_CAMERA_UP, 1);
 	}
 
 	// 'c' - down
 	if (MainInput.keys.keyDown[67])
 	{
+/*
 mSoundManager.Pause(pSoundFirst);
 mSoundManager.Pause(pSoundSecond);
 mSoundManager.Play(pSoundThird);
+*/
 MainRender.CurrentCamera->Move(NEW_CAMERA_DOWN, 1);
 	}
 
@@ -354,7 +379,12 @@ void Draw (void)
 			newPrint2D(10,(n++)*16.0f+10,"Frames per second: %d", MainRender.fps);
 			newPrint2D(10,(n++)*16.0f+10,"Triangles per frame: %d", MainRender.Tri_per_frame);
 			newPrint2D(10,(n++)*16.0f+10,"Triangles per sec: %d", MainRender.Tri_per_second);
+#if 0
 			newPrint2D(10,(n++)*16.0f+10,"Quaternion: %f %f %f %f", Rot.X, Rot.Y, Rot.Z, Rot.W);
+#else
+std::printf("[error] in '%s' 'Rot' is not ready \n", __func__);
+#endif /* (0) */
+
 			newPrint2D(10,(n++)*16.0f+10,"Euler corners: X = %f, Y = %f", MainRender.CurrentCamera->Pobj->rotEuler.Pitch, MainRender.CurrentCamera->Pobj->rotEuler.Yaw);
 			newPrint2D(10,(n++)*16.0f+10,"Camera position: X = %f, Y = %f, Z = %f", MainRender.CurrentCamera->Pobj->Position.X, MainRender.CurrentCamera->Pobj->Position.Y, MainRender.CurrentCamera->Pobj->Position.Z);
 			newPrint2D(10,(n++)*16.0f+10,"Camera quaternion: %f %f %f %f", MainRender.CurrentCamera->Pobj->Rotation.X, MainRender.CurrentCamera->Pobj->Rotation.Y, MainRender.CurrentCamera->Pobj->Rotation.Z, MainRender.CurrentCamera->Pobj->Rotation.W);
@@ -399,13 +429,19 @@ void Draw (void)
 				MainRender.CurFont->Color=newColor4ub(255,255,255,255);
 
 			newPrint2D(10,dg+=16,"'7'  - Transparency, if alfa channel preent.");
-
+#if 0
 			if (RenderPath==1)
-				newPrint2D(10,dg+=16,"'R' - “екущий способ отрисовки: glRotate и дисплейные списки");
+				newPrint2D(10,dg+=16,"'R' - \D2\E5\EA\F3\F9\E8\E9 \F1\EF\EE\F1\EE\E1 \EE\F2\F0\E8\F1\EE\E2\EA\E8: glRotate \E8 \E4\E8\F1\EF\EB\E5\E9\ED\FB\E5 \F1\EF\E8\F1\EA\E8");
 
 			if (RenderPath==2)
-				newPrint2D(10,dg+=16,"'R' - “екущий способ отрисовки: кватернионы и glBegin//glEnd");
+				newPrint2D(10,dg+=16,"'R' - \D2\E5\EA\F3\F9\E8\E9 \F1\EF\EE\F1\EE\E1 \EE\F2\F0\E8\F1\EE\E2\EA\E8: \EA\E2\E0\F2\E5\F0\ED\E8\EE\ED\FB \E8 glBegin//glEnd");
+#else
+			if (RenderPath==1)
+				std::printf ("[warning] '%s' : unknown escape sequence ignored (RenderPath==1) \n", __func__);
 
+			if (RenderPath==2)
+				std::printf ("[warning] '%s' : unknown escape sequence ignored (RenderPath==2) \n", __func__);
+#endif /* (0) */
 			if (MainSettings.CONSOLE.STATUS==NEW_CONSOLE_VISIBLE)
 				MainRender.CurFont->Color=newColor4ub(0,255,0,255);
 			else
@@ -432,8 +468,8 @@ void Draw (void)
 BOOL ProcessKeys(
    HWND hWnd,
    UINT message,
-   WPARAM wParam,
-   LPARAM lParam 
+   /* WPARAM 19012018 6:48 */ DWORD wParam,
+   /* LPARAM 19012018 6:48 */ long lParam 
 )
 {
 	if (wParam==192)
@@ -467,10 +503,22 @@ BOOL ProcessKeys(
 
 	if (wParam == 70) MainSettings.Render.DrawFPS = MainSettings.Render.DrawFPS? FALSE: TRUE;
 
+	if (wParam==27)
+#if 0
+		PostMessage (hWnd, WM_CLOSE, 0, 0);
+#else
+//		std::printf("[warning] '%s' PostMessage (hWnd, WM_CLOSE, 0, 0) \n", __func__);
+//		std::printf("[warning]  PostMessage (hWnd, WM_CLOSE, 0, 0) \n");
+		printf("[warning]  PostMessage (hWnd, WM_CLOSE, 0, 0) \n");
+#endif /* (0) */
 
-	if (wParam==27) PostMessage (hWnd, WM_CLOSE, 0, 0);
-
-	if (wParam==112) PostMessage (hWnd, WM_TOGGLEFULLSCREEN, 0, 0);
+	if (wParam==112)
+#if 0
+		PostMessage (hWnd, WM_TOGGLEFULLSCREEN, 0, 0);
+#else
+//		std::printf("[warning] '%s' PostMessage (hWnd, WM_TOGGLEFULLSCREEN, 0, 0) \n", __func__);
+		std::printf("[warning]  PostMessage (hWnd, WM_TOGGLEFULLSCREEN, 0, 0) \n");
+#endif /* (0) */
 
 	if (wParam==123) newSaveScreenToJPG();
 
@@ -546,7 +594,7 @@ void CreateSky(const newString &filename)
 {
 
 //++char *posname[]={"_0001","_0003","_0002","_0000","_0005","_0004"};
-	char *posname[]={"East","West","South","North","Hell","Heaven"};
+	const char * posname[]={"East","West","South","North","Hell","Heaven"};
 
 int i;
 

@@ -6,7 +6,6 @@
 #define DEF_DEF_NULL	0
 #define DEF_MINUS_ONE	-1
 
-#pragma once
 
 #include "Types.h"
 
@@ -100,6 +99,9 @@ public:
 
 	/* Загрузить текстуру в видеопамять. */
 	newResult Upload();
+
+private:
+	void* memcpy(void*, const void*, int);
 };
 
 /* Менеджер текстур */

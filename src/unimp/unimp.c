@@ -1331,7 +1331,8 @@ int extract_file(char *packfilename, int onlycheck, void **pMemBuf, char *filena
    if (filename)
    {
 	   int res;
-	   if (res = _stricmp(name, filename)) continue;
+//+++	   if (res = _stricmp(name, filename)) continue;
+	    if (res = strcmp(name, filename)) continue;
 
    }
    if(err<0)return err;

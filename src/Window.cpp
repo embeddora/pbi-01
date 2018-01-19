@@ -16,6 +16,8 @@
 /* Forge. Temporary. Etc... */
 #define ZeroMemory(x, y)  memset(x, 0, y)
 
+namespace std { using namespace __gnu_cxx; }
+
 
 NewWindow::NewWindow(void)
 {
@@ -845,10 +847,11 @@ BOOL	isMessagePumpActive;
 
 } /* Конец WinMain() */
 
-#if 0
+
 
 void newMouseToCenter()
 {
+#if 0
 RECT rcScreen;
 
 	GetClientRect(NEW_window.hWnd, &rcScreen);
@@ -861,10 +864,12 @@ RECT rcScreen;
 
 	ClientToScreen(NEW_window.hWnd,&cen);
 
+
 	SetCursorPos(cen.x, cen.y); 
 
 	MainInput.MouseCenter.Set((float)cen.x, (float)cen.y);
+#endif /* 0 */
 
 	MainInput.MousePos = MainInput.MouseCenter;
 }
-#endif /* 0 */
+

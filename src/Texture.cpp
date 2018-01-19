@@ -14,11 +14,26 @@
 	/* Библиотека работы с файлами формата JPEG */
 	extern "C"
 	{
-		#include "LibJPEG\jpeglib.h"
+		#include "LibJPEG/jpeglib.h"
 	}
-	#pragma comment( lib, "src\\LibJPEG\\libjpeg.lib" )
+	#pragma comment( lib, "libjpeg.lib" )
 
 #endif /* USE_LIBJPEG */
+
+void* newTexture::memcpy(void* __dest, const void* __src, int __n)
+{
+int i;
+char *d, *s;
+
+	d = (char *)__dest;
+	s = (char *)__src;
+	
+	for (i=0; i<__n; i++)
+	    d[i] = s[i];
+	    
+	return __dest;
+}
+
 
 newManager<newTexture> TextureMan;
 

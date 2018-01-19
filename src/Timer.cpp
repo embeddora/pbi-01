@@ -2,6 +2,8 @@
 
 #include "Console.h"
 
+namespace std { using namespace __gnu_cxx; }
+
 
 typedef union _LARGE_INTEGER {
   struct {

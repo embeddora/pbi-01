@@ -6,6 +6,8 @@
 
 #include "AseFile.h"
 
+namespace std { using namespace __gnu_cxx; }
+
 newScene::newScene(void)
 {
 

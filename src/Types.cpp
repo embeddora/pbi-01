@@ -7,6 +7,21 @@
 // We don't use C, C99 , so we don't have booleand in #include <stdbool.h>. Have top cinclude it ourselves 
 typedef char boolean;
 
+
+void* memcpy(void* __dest, const void* __src, int __n)
+{
+int i;
+char *d, *s;
+
+	d = (char *)__dest;
+	s = (char *)__src;
+	
+	for (i=0; i<__n; i++)
+	    d[i] = s[i];
+	    
+	return __dest;
+}
+
 /* In Linux haben wir keine <itoa(...)> , d.h. muss man selber schaffen . */
 char* itoa (unsigned long long  value,  char str[],  int radix)
 {
