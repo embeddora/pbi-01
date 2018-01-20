@@ -64,11 +64,10 @@ public:
 };
 
 /*
-// Менеджер 
 extern newManager<newRenderObject> g_RenderObjectMan;
-// Определение короткого имени
+
 typedef newManager<newRenderObject>::Items RenderObjects;
-// Ссылка на элементы менеджера
+
 extern RenderObjects &g_RenderObject;
 */
 

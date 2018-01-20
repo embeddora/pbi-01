@@ -1217,7 +1217,7 @@ int extract_files(int arg1, int argc, char **argv, int onlycheck, void *pMemBuf)
        errcount++;}
     }
   }
- if(errcount)fprintf(stderr,"%ld error%s found.\n",errcount,errcount==1 ? "" : "s");
+ if(errcount)fprintf(stderr,"%ld error%s found.\n",(long int)errcount,errcount==1 ? "" : "s");
  return 0;
 }
 
@@ -1331,8 +1331,12 @@ int extract_file(char *packfilename, int onlycheck, void **pMemBuf, char *filena
    if (filename)
    {
 	   int res;
-//+++	   if (res = _stricmp(name, filename)) continue;
+#if 0
+	   if (res = _stricmp(name, filename)) continue;
+#else
+		printf("[warning] in '%s' <strcmp> deployed instead of <_stricmp>\n", __func__);
 	    if (res = strcmp(name, filename)) continue;
+#endif /* (0) */
 
    }
    if(err<0)return err;
@@ -1388,6 +1392,6 @@ int extract_file(char *packfilename, int onlycheck, void **pMemBuf, char *filena
     if (!err) break;
   }
  if (!*pMemBuf) return -1;
- if(errcount)fprintf(stderr,"%ld error%s found.\n",errcount,errcount==1 ? "" : "s");
+ if(errcount)fprintf(stderr,"%ld error%s found.\n",(long int)errcount,errcount==1 ? "" : "s");
  return 0;
 }

@@ -95,13 +95,10 @@ private:
 	BOOL PreComputed;
 };
 
-/* Менеджер */
 extern newManager<newMesh> g_MeshMan;
 
-/* Определение короткого имени */
 typedef newManager<newMesh>::Items Meshs;
 
-/* Ссылка на элементы менеджера */
 extern Meshs &g_Mesh;
 
 #endif /* ifndef-define include guard */

@@ -40,10 +40,10 @@
 /* Pi */
 #define NEW_PI			3.14159265358979323846f
 
-/* Transformation: gрадусы -> радианы */
+/* Transformation:    */
 #define NEW_DEGTORAD(a)		( (a) * ( NEW_PI / 180.0f ) )
 
-/* Transformation: Радианы -> градусы */
+/* Transformation:    */
 #define	NEW_RADTODEG(x)		( (x) * ( 180.0f / NEW_PI ) )
 
 /* Power 2 of munber 'x' */
@@ -225,29 +225,29 @@ typedef std::list<newString> newStringList;
 
 /* All used name'd constants */
 enum newEnum {
-	/* Ничего */
+
 	NEW_NONE,
-	/* На границах повторяется */
+
 	NEW_TEXTURE_BORDER_REPEAT,
-	/* На границах не повторяется */
+
 	NEW_TEXTURE_BORDER_CLAMP,
-	/* Смешать - Заменить */
+
 	NEW_TEXTURE_COMBINE_REPLACE,
-	/* Смешать - Добаваить */
+
 	NEW_TEXTURE_COMBINE_ADD,
-	/* Смешать - Умножить */
+
 	NEW_TEXTURE_COMBINE_MODULATE,
-	/* Основная текстура */
+
 	NEW_TEXTURE_DIFFUSE,
-	/* Текстура для шрифта */
+
 	NEW_TEXTURE_FONT,
-	/* Режим 3D */
+
 	NEW_RENDERMODE_3D,
-	/* Режим 2D */
+
 	NEW_RENDERMODE_2D,
 	NEW_RENDERMODE_PARTICLE,					
 	NEW_RENDERMODE_BILLBOARD,
-	/* Restore previous mode */
+
 	NEW_RENDERMODE_RESTORE_LAST,
 	NEW_VARIABLE_BYTE,
 	NEW_VARIABLE_INT,
@@ -323,7 +323,7 @@ public:
 	newString Name;
 };
 
-// Для загрузки из файла
+
 
 typedef unsigned short __int16 ;//+++
 
@@ -331,9 +331,9 @@ typedef unsigned short __int16 ;//+++
 #define NEW_SCENE_FILEID	"GSF"
 #define NEW_MESH_FILEID		"GOF"
 #define NEW_MATERIAL_FILEID	"GMF"
-#define NEW_SCENE_VERSION		(__int16)0x0001 /* Версия 00.01 */
-#define NEW_MESH_VERSION		(__int16)0x0001 /* Версия 00.01 */
-#define NEW_MATERIAL_VERSION	(__int16)0x0001 /* Версия 00.01 */
+#define NEW_SCENE_VERSION		(__int16)0x0001 
+#define NEW_MESH_VERSION		(__int16)0x0001 
+#define NEW_MATERIAL_VERSION	(__int16)0x0001 
 
 #define NEW_STATICBGCOLOR	(__int16)0x1001
 #define NEW_STATICAMBIENT	(__int16)0x1002

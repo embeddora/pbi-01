@@ -20,24 +20,20 @@
  * Abstract:  
  */
 
-/* Работа с текстурами */
 #include "Texture.h"
 
 #include "Math.h"
 
-/* Класс матерьяла */
 class newMaterial
 {
 public:
 
 	newMaterial(void)
 		;
-	/* Коструктор */
 	newMaterial( const newString &_Name,const newString &_DiffuseMap);
 
 	~newMaterial(void);
 
-	/* Имя материала */
 	newString Name;
 
 	void memcopy(void*, void*, int);
@@ -58,8 +54,6 @@ public:
 
 	float Transparency;
     
-	/* Основная текстура. Ссылка на текстуру */
-
 	newTexture *GenericMap;
 
 	newTexture *AmbientMap;
@@ -112,16 +106,12 @@ public:
 
 	float EnvAmount;
 
-	/* Загрузка текстуры из файла */
 	newResult LoadTextureFromFile(newEnum type,const newString& FileName);
 
-	/* Создание пустой текстуры */
 	newResult CreateEmptyTexture(newEnum type,int width,int height, newColor3ub &c);
 
-	/* Создание пустой текстуры */
 	newResult CreateEmptyTexture(newEnum type,int width,int height, newColor4ub &c);
 
-	/* Загрузка материала из файла */
 	newResult LoadFromFile(const newString &FileName);
 
 	newResult ObtainMaterialFromAseFile(FILE * fpIn, int iMatIdx);
@@ -139,13 +129,10 @@ private:
         
 };
 
-/* Менеджер */
 extern newManager<newMaterial> MaterialMan;
 
-/* Определение короткого имени */
 typedef newManager<newMaterial>::Items Materials;
 
-/* Ссылка на элементы менеджера */
 extern Materials &Material;
 
 #endif /* ifndef-define include guard */

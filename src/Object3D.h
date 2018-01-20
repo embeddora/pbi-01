@@ -62,13 +62,10 @@ public:
 	void Render();
 };
 
-/* Менеджер */
 extern newManager<newObject3D> Object3DMan;
 
-/* Определение короткого имени */
 typedef newManager<newObject3D>::Items Object3Ds;
 
-/* Ссылка на элементы менеджера */
 extern Object3Ds &Object3D;
 
 #endif /* ifdef-define include guard */

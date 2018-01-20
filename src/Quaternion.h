@@ -34,25 +34,22 @@
 
 #define inline __forceinline 
 
-
-/* Namespace для структуры вектор */
-
-
 namespace new_quaternion
 {
+	template< class ta_a > class vecarg
+	{
+		const ta_a& Argv;
 
-/* Аргументы */
+		public:
+			inline vecarg( const ta_a& A ) : Argv( A )
+			{
+			}
 
-
-    template< class ta_a >
-    class vecarg
-    {
-        const ta_a& Argv;
-    public:
-        inline vecarg( const ta_a& A ) : Argv( A ) {}
-        inline const float Evaluate( const int i ) const 
-        { return Argv.Evaluate( i ); }
-    };
+			inline const float Evaluate( const int i ) const 
+			{
+				return Argv.Evaluate( i );
+			}
+	};
 
 /*    template<> 
     class vecarg< const float >
@@ -75,37 +72,34 @@ namespace new_quaternion
     };
 */
 
-///////////////////////////////////////////////////////////////////////////
-// Выражения
-///////////////////////////////////////////////////////////////////////////
+	template< class ta_a, class ta_b, class ta_eval > class vecexp_2
+	{
+	const vecarg<ta_a>   Arg1;
+	const vecarg<ta_b>   Arg2;
 
-    template< class ta_a, class ta_b, class ta_eval >
-    class vecexp_2
-    {
-        const vecarg<ta_a>   Arg1;
-        const vecarg<ta_b>   Arg2;
+	public:
+		inline vecexp_2( const ta_a& A1, const ta_b& A2 ) : Arg1( A1 ), Arg2( A2 )
+		{
+		}
 
-    public:
-        inline vecexp_2( const ta_a& A1, const ta_b& A2 ) : Arg1( A1 ), Arg2( A2 ) {}
-        inline const float Evaluate ( const int i ) const
-        { return ta_eval::Evaluate( i, Arg1, Arg2 ); }
-    };
+		inline const float Evaluate ( const int i ) const
+		{
+			return ta_eval::Evaluate( i, Arg1, Arg2 );
+		}
+	};
 
-    template< class ta_a, class ta_eval >
-    class vecexp_1
-    {
-        const vecarg<ta_a>   Arg1;
+	template< class ta_a, class ta_eval > class vecexp_1
+	{
+	const vecarg<ta_a>   Arg1;
 
-    public:
-        inline vecexp_1( const ta_a& A1 ) : Arg1( A1 ) {}
+		public:
+			inline vecexp_1( const ta_a& A1 ) : Arg1( A1 ) {}
 
-        inline const float Evaluate( const int i ) const
-        { return ta_eval::Evaluate( i, Arg1.Evaluate( i ) ); }
-    };
-
-///////////////////////////////////////////////////////////////////////////
-// Базовый класс
-///////////////////////////////////////////////////////////////////////////
+		inline const float Evaluate( const int i ) const
+		{
+			return ta_eval::Evaluate( i, Arg1.Evaluate( i ) );
+		}
+	};
 
     template< int ta_dimension, class T >
     struct base : public T
@@ -113,9 +107,6 @@ namespace new_quaternion
         inline       float&  operator[]( const int i )       { return ((float*)this)[i]; } 
         inline const float   Evaluate  ( const int i ) const { return ((float*)this)[i]; }
 
-        //////////////////////////////////////////////////////////////////
-        // Присвоение
-        //////////////////////////////////////////////////////////////////
         template< class ta >
         struct assigment
         {
@@ -143,18 +134,14 @@ namespace new_quaternion
 */
         };
 
-        template< class ta_type > inline
-        const base<ta_dimension,T>& operator = ( const ta_type& A )
-        {
-            assigment<ta_type>::Assign( *this, A );
-            return *this;
-        }
+	template< class ta_type > inline const base<ta_dimension,T>& operator = ( const ta_type& A )
+	{
+		assigment<ta_type>::Assign( *this, A );
 
-        //////////////////////////////////////////////////////////////////
-        // Норма
-        //////////////////////////////////////////////////////////////////
-        template< class ta>
-        struct norma2
+		return *this;
+	}
+
+        template< class ta> struct norma2
         {
             template< int I, class R >
             struct recurse
@@ -214,35 +201,24 @@ namespace new_quaternion
 	}
 
 
-///////////////////////////////////////////////////////////////////////////
-// Данные
-///////////////////////////////////////////////////////////////////////////
-
     struct desc_xyzw_strq
     {
 		float X, Y, Z, W;
     };
 };
 
-///////////////////////////////////////////////////////////////////////////
-// Quaternion
-///////////////////////////////////////////////////////////////////////////
 
-// Кватернион с компонентами типа float, структура занимает 4*sizeof(float) байт
 struct newQuaternionf : public new_quaternion::base< 4, new_quaternion::desc_xyzw_strq>
 {
-    // Определяем тип
 	typedef new_quaternion::base< 4, new_quaternion::desc_xyzw_strq > base;
 
-	// Конструкторы
-	// Стандартный
 	inline newQuaternionf() { X=0; Y=0; Z=0; W=1; };
     
-	// По координатам
 	inline newQuaternionf( const float x, const float y, const float z, const float w)
-	{ X=x; Y=y; Z=z; W=w; };
+	{
+		X=x; Y=y; Z=z; W=w;
+	};
 
-	// Создать из угла и оси
 	inline newQuaternionf(float Angle, newVector3f &Axis)
 	{
 		double rad=NEW_DEGTORAD(Angle * 0.5f);
@@ -255,7 +231,6 @@ struct newQuaternionf : public new_quaternion::base< 4, new_quaternion::desc_xyz
 		Normalize();
 	}
 
-	// Создать из осевого угла
 	inline newQuaternionf(newAxisAngle &src)
 	{
 		double rad=NEW_DEGTORAD(src.Angle * 0.5f);
@@ -268,7 +243,6 @@ struct newQuaternionf : public new_quaternion::base< 4, new_quaternion::desc_xyz
 		Normalize();
 	}
 
-	// Переназначить из угла и оси
 	inline void FromAxisAngle(float Angle, newVector3f Axis)
 	{
 		double rad=NEW_DEGTORAD(Angle * 0.5f);
@@ -281,7 +255,6 @@ struct newQuaternionf : public new_quaternion::base< 4, new_quaternion::desc_xyz
 		Normalize();
 	}
 
-	// Переназначить из осевого угла
 	inline void FromAxisAngle(newAxisAngle &src)
 	{
 		double rad=NEW_DEGTORAD(src.Angle * 0.5f);
@@ -294,7 +267,6 @@ struct newQuaternionf : public new_quaternion::base< 4, new_quaternion::desc_xyz
 		Normalize();
 	}
 
-	// Сконвертировать в осевой угол
 	inline newAxisAngle& ToAxisAngle(newAxisAngle &dst)
 	{
 		float s=X*X+Y*Y+Z*Z;
@@ -314,19 +286,22 @@ struct newQuaternionf : public new_quaternion::base< 4, new_quaternion::desc_xyz
 		return dst;
 	}
 
-	// Операторы присвоения
-	template< class ta_type > inline
-    newQuaternionf ( const ta_type& A )
-    { base::operator = ( A ); }
-    template< class ta_type > inline
-    newQuaternionf& operator = ( const ta_type& A )
-    { base::operator = ( A ); return *this; }
-	// Оператор умножения с присвоением
-	template< class ta_type > inline
-    newQuaternionf& operator *= ( const ta_type& A )
-    { base::operator = ( *this * A ); return *this; }
 
-	// Нормализация
+	template< class ta_type > inline    newQuaternionf ( const ta_type& A )
+	{
+		base::operator = ( A );
+	}
+
+	template< class ta_type > inline   newQuaternionf& operator = ( const ta_type& A )
+	{
+		base::operator = ( A ); return *this;
+	}
+
+	template< class ta_type > inline   newQuaternionf& operator *= ( const ta_type& A )
+	{
+		base::operator = ( *this * A ); return *this;
+	}
+
 	inline void Normalize()
 	{
 		//+++float norm = Norma();
@@ -335,10 +310,8 @@ struct newQuaternionf : public new_quaternion::base< 4, new_quaternion::desc_xyz
 		Y/= norm;
 		Z/= norm;
 		W/= norm;
-		
 	}
 
-	// Переназначить из углов Эйлера, заданных координатами
 	inline void FromEuler(float x, float y, float z)
 	{
 		double ex = NEW_DEGTORAD(x) / 2.0;
@@ -366,7 +339,6 @@ struct newQuaternionf : public new_quaternion::base< 4, new_quaternion::desc_xyz
 
 	}
 
-	// Переназначить из углов Эйлера
 	inline void FromEuler(const newEulerAngle &a)
 	{
 		double ex = NEW_DEGTORAD(a.Pitch) / 2.0;
@@ -422,7 +394,6 @@ struct newQuaternionf : public new_quaternion::base< 4, new_quaternion::desc_xyz
 		W = float(fCoeff0 * W + fCoeff1 * dst.W);
 	}
 
-	// Возвращает вектор направления
 	inline void GetDirVector(newVector3f &v)
 	{
 		Normalize();
@@ -430,7 +401,7 @@ struct newQuaternionf : public new_quaternion::base< 4, new_quaternion::desc_xyz
 		v.Y = 2.0f*(Y*Z+W*X);
 		v.Z = 1.0f-2.0f*(X*X+Y*Y);
 	}
-	// Сконвертировать в углы Эйлера
+
 	inline void ToEulerAngle(newEulerAngle &e)
 	{
 		double sqW = W*W;
@@ -453,12 +424,10 @@ struct newQuaternionf : public new_quaternion::base< 4, new_quaternion::desc_xyz
 		v.Z = W * r.Z + Z * r.W + X * r.Y - Y * r.X;
 	}
 	
-}; // Конец класса
+};
 
-// Сферико-линейная интерполяция
 newQuaternionf Slerp(const newQuaternionf &src, const newQuaternionf &dst, float factor);
 
-// Применение кватерниона к вектору
 void newApplyQuaterion(newVector3f &v, const newQuaternionf &q);
 
 #endif /* ifndef-define include guard */

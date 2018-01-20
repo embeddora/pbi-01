@@ -22,38 +22,31 @@
 
 #define LEXEMA	0x20
 
-/*typedef struct 
-
-{
-	float X, Y, Z;
-
-} fvect; */
-
 typedef struct 
 {
-	int		i3dsMaxAsciiExport;
+	int	i3dsMaxAsciiExport;
 
 	char	chAsciiExp[LEXEMA];
 
 	char	chVersion[LEXEMA];
 
-	int		iVer;
+	int	iVer;
 
-	int		iSubVer;
+	int	iSubVer;
 
 	char	chWeekDay[LEXEMA];
 
 	char	chMonth[LEXEMA];
 
-	int		iDate;
+	int	iDate;
 
-	int		iHours;
+	int	iHours;
 
-	int		iMinutes;
+	int	iMinutes;
 
-	int		iSeconds;
+	int	iSeconds;
 
-	int		iYear;
+	int	iYear;
 
 } AseFileType, *pAseFileType;
 
@@ -61,13 +54,13 @@ typedef struct
 {
 	char	chFileName[LEXEMA];
 
-	int		iFirstFrame;
+	int	iFirstFrame;
 
-	int		iLastFrame;
+	int	iLastFrame;
 
-	int		iFrameSpeed;
+	int	iFrameSpeed;
 
-	int		iTicksPerFrame;
+	int	iTicksPerFrame;
 
 	float	cfBackgroundStatic[3];
 
@@ -80,11 +73,11 @@ typedef struct
 {
 	char	chNameStr[LEXEMA];
 
-	int		iNameIdx;
+	int	iNameIdx;
 
 	char	chClass[LEXEMA];
 
-	int		iSubNo;
+	int	iSubNo;
 
 	float	fMapAmount;
 
@@ -110,7 +103,7 @@ typedef struct
 
 	float	fUvwNoiseSize;
 
-	int		iUvwNoiseLevel;
+	int	iUvwNoiseLevel;
 
 	float	fUvwNoisePhase;
 
@@ -120,7 +113,7 @@ typedef struct
 
 typedef struct
 {
-	int		iNameIdx;
+	int	iNameIdx;
 
 	char	chNameStr[LEXEMA];
 
@@ -156,7 +149,7 @@ typedef struct
 
 typedef struct 
 {
-	int 		iCount;
+	int 	iCount;
 
 	pMaterialType	Material;
 
@@ -166,11 +159,11 @@ typedef struct
 {
 	char 	chNodeNameAgain[LEXEMA];
 
-	int		ciInheritPos[3];
+	int	ciInheritPos[3];
 
-	int		ciInheritRot[3];
+	int	ciInheritRot[3];
 
-	int		ciInheritScl[3];
+	int	ciInheritScl[3];
 
 	float	cfRow0[3];
 
@@ -197,7 +190,7 @@ typedef struct
 
 typedef struct 
 {
-	int		iIdx;
+	int	iIdx;
 
 	float	cfCords[3];
 
@@ -205,23 +198,23 @@ typedef struct
 
 typedef struct
 {
-	int		iIdx;
+	int	iIdx;
 
-	int		iA;
+	int	iA;
 
-	int		iB;
+	int	iB;
 
-	int		iC;
+	int	iC;
 
-	int		iAB;
+	int	iAB;
 
-	int		iBC;
+	int	iBC;
 
-	int		iCA;
+	int	iCA;
 
-	int		iSmoothing;
+	int	iSmoothing;
 
-	int		iMtLid;
+	int	iMtLid;
 
 } FaceType, pFaceType;
 
@@ -240,21 +233,21 @@ typedef struct
 
 typedef struct
 {
-	int		iTimeValue;
+	int	iTimeValue;
 
-	int		iNumVertex;
+	int	iNumVertex;
 
-	int		iNumFaces;
+	int	iNumFaces;
 
 	pVertexType	pVertex;
 
 	pFaceType	pFace;
 
-	int		iNumTvertex;
+	int	iNumTvertex;
 
 	pTvertexType	pTvertex;
 
-	int		iNumTfaces;
+	int	iNumTfaces;
 
 	pTfaceType	pTface;
 
@@ -262,22 +255,22 @@ typedef struct
 
 typedef struct
 {
-	char 		chNodeName[LEXEMA];
+	char 	chNodeName[LEXEMA];
 
 	pNodeTmType	pNodeTm;
 
 	pMeshType	pMesh;
 
-	int			iPropMotionBlur;
+	int	iPropMotionBlur;
 
-	int			iPropCastShadow;
+	int	iPropCastShadow;
 
-	int			iProcpRecvShadow;
+	int	iProcpRecvShadow;
 
-	int			iMaterialRef;
+	int	iMaterialRef;
 
-	/* most often we won't see it in ASE */
-	float			cfWireFrameColor[3];
+	/* In most cases we won't see it in scene editor, in ASE model - too */
+	float	cfWireFrameColor[3];
 
 } GeomObjectType, pGeomObjectType;
 

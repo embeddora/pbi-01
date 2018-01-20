@@ -38,12 +38,9 @@
 
 #include "Errors.h"
 
+// Definition of std::hashmap 
 namespace std { using namespace __gnu_cxx; }
 
-
-
-
-/* Менеджер ресурсов (громко сказано, это только набросок) */
 //template <class T> class newManager
 template <typename T> class newManager
 {
@@ -57,9 +54,6 @@ public:
 	{
 	}
 
-
-
-	/* Глобальный массив */
 	typedef std::map<newString, T> Items;
 
 	Items Item;
@@ -87,7 +81,6 @@ public:
 		return &Item[Name];
 	}
 
-	/* Генерируем имя */
 	newString newGenItemName()
 	{
 	static char buf[255];
@@ -104,7 +97,6 @@ public:
 		return buf;
 	}
 
-	/* Новый элемент со сгенерированым именем */
 	T *newNewItem()
 	{
 		newString Name = newGenItemName();

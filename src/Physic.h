@@ -22,7 +22,6 @@
 
 #include "PhysicObject.h"
 
-/* Класс физики */
 class newPhysic
 {
 public:
@@ -30,11 +29,9 @@ public:
 
 	~newPhysic(void);
 
-	/* Гравитация */
 	newVector3f Gravity;
 };
 
-/* Глобальная переменная */
 extern newPhysic MainPhysic;
 
 #endif /* ifndef-define include guard */

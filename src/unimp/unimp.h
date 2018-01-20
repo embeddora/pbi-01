@@ -1,3 +1,6 @@
+#ifndef __UNIMP_H__
+#define __UNIMP_H__
+
 #define MAX_VERSION 0x10A
 #define MAXMETHOD METHOD_LZ77_MM
 
@@ -157,3 +160,5 @@ typedef struct
 #define RET_IO 7
 
 int extract_file(char *packfilename, int onlycheck, void **pMemBuf, char *filename, uint32 *SizeInBytes);
+
+#endif /* ifndef-define include guard */

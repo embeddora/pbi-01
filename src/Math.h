@@ -22,9 +22,6 @@
 
 #include "Vector.h"
 
-//+++#include "Quaternion.h"
-
-/* Математика */
 class newMath
 {
 public:

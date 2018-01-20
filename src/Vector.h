@@ -73,7 +73,7 @@ namespace new_vector
     };
 
 ///////////////////////////////////////////////////////////////////////////
-// Выражения
+// . . . 
 ///////////////////////////////////////////////////////////////////////////
 
     template< class ta_a, class ta_b, class ta_eval >
@@ -101,7 +101,7 @@ namespace new_vector
     };
 
 ///////////////////////////////////////////////////////////////////////////
-// Базовый класс
+// . . . 
 ///////////////////////////////////////////////////////////////////////////
 
     template< int ta_dimension, class T >
@@ -111,7 +111,7 @@ namespace new_vector
         inline const float   Evaluate  ( const int i ) const { return ((float*)this)[i]; }
 
         //////////////////////////////////////////////////////////////////
-        // Присвоение
+        // . . . 
         //////////////////////////////////////////////////////////////////
         template< class ta >
         struct assigment
@@ -159,7 +159,7 @@ namespace new_vector
         }
         
         //////////////////////////////////////////////////////////////////
-        // Скалярное произведение
+        // . . . 
         //////////////////////////////////////////////////////////////////
         template< class ta, class tb >
         struct dot_prod
@@ -198,7 +198,7 @@ namespace new_vector
 		}
 
         //////////////////////////////////////////////////////////////////
-        // Длинна вектора
+        // . . . 
         //////////////////////////////////////////////////////////////////
         template< class ta>
         struct length2
@@ -239,7 +239,7 @@ namespace new_vector
 		}
 		
 		///////////////////////////////////////////////////////////////////////////
-		// Векторное произведение (часть 1)
+		// . . . 
 		///////////////////////////////////////////////////////////////////////////
 		struct cross
 		{
@@ -288,7 +288,7 @@ namespace new_vector
 	}
 
 	///////////////////////////////////////////////////////////////////////////
-	// Векторное произведение (часть 2)
+	// . . . 
 	///////////////////////////////////////////////////////////////////////////
 #if 0
 	template< class ta_c1, class ta_c2 > inline
@@ -300,7 +300,7 @@ namespace new_vector
 #endif /* (0) */
 
 	///////////////////////////////////////////////////////////////////////////
-	// Сумма
+	// . . . 
 	///////////////////////////////////////////////////////////////////////////
 
 	struct sum
@@ -327,7 +327,7 @@ namespace new_vector
 	}
 
 	///////////////////////////////////////////////////////////////////////////
-	// Разность
+	// . . . 
 	///////////////////////////////////////////////////////////////////////////
 
 	struct raz
@@ -345,33 +345,24 @@ namespace new_vector
 	}
 
 
-///////////////////////////////////////////////////////////////////////////
-// Данные
-///////////////////////////////////////////////////////////////////////////
-
-    struct desc_xyzw_strq
-    {
+	struct desc_xyzw_strq
+	{
 		float X, Y, Z, W;
-    };
+	};
 
-    struct desc_xyz_str
-    {
+	struct desc_xyz_str
+	{
 		float X, Y, Z;
-    };
+	};
 
-    struct desc_xy_st
-    {
+	struct desc_xy_st
+	{
 		float X, Y;
-    };
+	};
 
 };
 
-///////////////////////////////////////////////////////////////////////////
-// Vector
-///////////////////////////////////////////////////////////////////////////
 
-
-// Вектор с тремя компонентами типа float
 struct newVector2f : public new_vector::base< 2, new_vector::desc_xy_st >
 {
     typedef new_vector::base< 2, new_vector::desc_xy_st > base;
@@ -423,7 +414,6 @@ struct newVector2f : public new_vector::base< 2, new_vector::desc_xy_st >
 	operator const float*() const {return &X;}
 };
 
-// Вектор с тремя компонентами типа float
 struct newVector3f : public new_vector::base< 3, new_vector::desc_xyz_str>
 {
     typedef new_vector::base< 3, new_vector::desc_xyz_str > base;
@@ -472,7 +462,7 @@ struct newVector3f : public new_vector::base< 3, new_vector::desc_xyz_str>
 		if (!NEW_FLOAT_EQ(Z,0)) return FALSE;
 		return TRUE;
 	}
-	// Вращает вектор вокруг оси OX
+
 	inline void RotateX(float angle)
 	{
 		float oy=Y,oz=Z;
@@ -480,7 +470,7 @@ struct newVector3f : public new_vector::base< 3, new_vector::desc_xyz_str>
 		Y=(float)((oy * cos(angle) )+(oz * (-sin(angle) ) ));
 		Z=(float)((oy * sin(angle) )+(oz * (cos(angle) ) ));
 	}
-	// Вращает вектор вокруг оси OY
+
 	inline void RotateY(float angle)
 	{
 		float ox=X,oz=Z;
@@ -488,7 +478,7 @@ struct newVector3f : public new_vector::base< 3, new_vector::desc_xyz_str>
 		X=(float)((ox * cos(angle) )+(oz * (-sin(angle) ) ));
 		Z=(float)((ox * sin(angle) )+(oz * (cos(angle) ) ));
 	}
-	// Вращает вектор вокруг оси OZ
+
 	inline void RotateZ(float angle)
 	{
 		float ox=Y,oy=Y;
@@ -500,7 +490,6 @@ struct newVector3f : public new_vector::base< 3, new_vector::desc_xyz_str>
 	operator const float*() const {return &X;}
 };
 
-// Вектор с четырмя компонентами типа float
 struct newVector4f : public new_vector::base< 4, new_vector::desc_xyzw_strq>
 {
     typedef new_vector::base< 4, new_vector::desc_xyzw_strq > base;
@@ -550,7 +539,7 @@ struct newVector4f : public new_vector::base< 4, new_vector::desc_xyzw_strq>
 		if (!NEW_FLOAT_EQ(W,0)) return FALSE;
 		return TRUE;
 	}
-	// Вращает вектор вокруг оси OX
+
 	inline void RotateX(float angle)
 	{
 		float oy=Y,oz=Z;
@@ -558,7 +547,7 @@ struct newVector4f : public new_vector::base< 4, new_vector::desc_xyzw_strq>
 		Y=(float)((oy * cos(angle) )+(oz * (-sin(angle) ) ));
 		Z=(float)((oy * sin(angle) )+(oz * (cos(angle) ) ));
 	}
-	// Вращает вектор вокруг оси OY
+
 	inline void RotateY(float angle)
 	{
 		float ox=X,oz=Z;
@@ -566,7 +555,7 @@ struct newVector4f : public new_vector::base< 4, new_vector::desc_xyzw_strq>
 		X=(float)((ox * cos(angle) )+(oz * (-sin(angle) ) ));
 		Z=(float)((ox * sin(angle) )+(oz * (cos(angle) ) ));
 	}
-	// Вращает вектор вокруг оси OZ
+
 	inline void RotateZ(float angle)
 	{
 		float ox=Y,oy=Y;

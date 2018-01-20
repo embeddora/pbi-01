@@ -21,8 +21,6 @@
 
 #include "Settings.h"
 
-#include "stdio.h"
-
 /* Глобальный массив */
 Cameras Camera;
 

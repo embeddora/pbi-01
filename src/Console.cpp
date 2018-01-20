@@ -33,8 +33,6 @@
 // Prototypes strlen(..)
 #include <string.h>
 
-namespace std { using namespace __gnu_cxx; }
-
 /* Консольные процедуры */
 
 /* Help - помощь. Выводит список всех команд и переменных. */
@@ -144,11 +142,8 @@ void conVideoRestart(const newString &s)
 }
 
 
-
 /* Глобальная переменная */
 newConsole MainConsole;
-
-
 
 /* Конструктор */
 newConsole::newConsole(void)
@@ -240,8 +235,6 @@ newConsole::~newConsole(void)
 	
 }
 
-
-
 /* Фукнция добавления команды */
 BOOL newConsole::AddCMD(const newString &_Name, newEnum _Type, void *_Link, void (*_Adress)(const newString &Command))
 {
@@ -272,7 +265,6 @@ newConCommand k;
 
 	return TRUE;
 }
-
 
 /* Запускаем команду */
 BOOL newConsole::ExecCMD(const newString &cmd)
@@ -438,8 +430,6 @@ newString command, value;
 /* буфер для обработки сообщений */
 char mess[16384];
 
-
-
 /* Функция добавляем в консоль сообщение */
 void newConsole::Add(UINT Level, const char *Message,...)
 {
@@ -502,7 +492,6 @@ void newConsole::Add(UINT Level, const char *Message,...)
 		MainRender.DrawConsole();
 }
 
-
 /* Обрабатываем клавиши */
 void newConsole::ProcessKey(DWORD Key)
 {
@@ -549,7 +538,6 @@ void newConsole::ProcessKey(DWORD Key)
 	/* Клавиша: Esc. Действие: Очищаем строку */
 	if (Key==27) Current.clear();
 
-
 	/* Клавиша: Стрелка вверх. Действие: Копируем из истории команду выше */
 	if (Key==38)
 	{
@@ -562,9 +550,6 @@ void newConsole::ProcessKey(DWORD Key)
 				Current=*(HistoryPos);
 			}
 	}
-
-
-
 
 	/* Клавиша: Стрелка вниз. Действие: Копируем из истории команду ниже */
 	if (Key==40)
@@ -586,8 +571,6 @@ void newConsole::ProcessKey(DWORD Key)
 				Current.clear();
 	}
 
-
-
 	/* Клавиша: Tab. Действие: Заканчиваем команду или выводим список похожих */
 	if (Key==9)
 
@@ -597,8 +580,6 @@ void newConsole::ProcessKey(DWORD Key)
 
 	/* Количество букв по вертикали половины экрана. При Page Up, Page Down считается страницой */
 	UINT ConsolePage=MainRender.FontDisplayHeight/32-1;
-
-
 
 	/* Клавиша: Page Up. Действие: Листаем вверх на одну страницу */
 	if (Key==33)
@@ -626,12 +607,7 @@ void newConsole::ProcessKey(DWORD Key)
 	{
 		Line=0;
 	}
-#if 0
-#endif /* (0) */
-
 }
-
-
 
 /* Завершение буквеного представления команды */
 void newConsole::AutoCompleteCMD()
@@ -751,5 +727,3 @@ void newConsole::UpdateCutten()
 		it++;
 	}
 }
-
-
