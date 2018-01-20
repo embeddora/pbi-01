@@ -17,15 +17,15 @@
 #  Abstract: a makefile for 'Post-Browser Interface #1' project
 
 
-CCFLAGS=-I./src  -I./stl 
+CCFLAGS=-I./src  -I./stl  -g
  
-CPPFLAGS=-I./src  -I./stl  -fpermissive -Wno-deprecated 
+CPPFLAGS=-I./src  -I./stl  -fpermissive -Wno-deprecated  -g
 #
 # -Wno-deprecated -- 
 #
 # -fpermissive -- for <src/Scene> warningless compilation 
 #
-# -g debug symbols (to explore dumped core, for instance)
+# -g -- debug symbols (to explore dumped core, for instance)
 #
 # -fprofile-arcs -ftest-coverage  (to collect code coverage statistics)
 #
@@ -33,8 +33,10 @@ CPPFLAGS=-I./src  -I./stl  -fpermissive -Wno-deprecated
 
 LDFLAGS=-lGL -lGLU -lglut
 
-OBJS=src/unimp/unimp.o        src/AseFile.o src/Camera.o  src/Engine.o src/Errors.o src/Font.o src/Frustum.o src/Input.o src/Light.o src/LightSystem.o src/Manager.o src/Material.o src/Math.o src/Mesh.o src/Object3D.o src/Physic.o src/PhysicObject.o src/RenderObject.o src/Scene.o src/Settings.o src/Texture.o src/Types.o  \
-src/Timer.o   src/File.o  src/GLLight.o  src/Render.o  src/Console.o   src/Window.o   src/Quaternion.o   src/Redraw.o  
+OBJS1=src/unimp/unimp.o        src/AseFile.o src/Camera.o  src/Engine.o src/Errors.o src/Font.o src/Frustum.o src/Input.o src/Light.o src/LightSystem.o src/Manager.o src/Material.o src/Math.o src/Mesh.o src/Object3D.o src/Physic.o src/PhysicObject.o src/RenderObject.o src/Scene.o src/Settings.o src/Texture.o src/Types.o  \
+src/Timer.o   src/File.o  src/GLLight.o  src/Render.o  src/Console.o   src/Window.o   src/Quaternion.o   src/Redraw.o       src/WindowM.o
+
+OBJS=src/unimp/unimp.o  src/AseFile.o src/Camera.o  src/Engine.o src/Errors.o src/Font.o src/Frustum.o src/Input.o src/Light.o src/LightSystem.o src/Manager.o src/Material.o src/Math.o src/Mesh.o    src/WindowM.o
 # probs: src/Sound.o	-- reine Windows Sache, muss man vollkommen ersetzen
 
 # Not cross-compiling till instance for <Linux/i585> platform is ready
@@ -57,12 +59,12 @@ all:	$(OBJS) $(TARGET)
 	$(CC) $(CCFLAGS)  -c -o $@ $<
 
 
-_main: $(OBJS)
+$(TARGET): $(OBJS)
 	$(CPP)  $(OBJS)       -o $@  $(LDFLAGS)
 
-GRBG=./src/*.o ./src/*~   src/unimp/*.o src/unimp/*~       $(TARGET)          ./*.o ./*~
+GRBG=./src/*.o ./src/*~   src/unimp/*.o src/unimp/*~       $(TARGET)  core        ./*.o ./*~
 
 clean:
-	rm $(GRBG) ; rm -r -v $(GRBGD)
+	rm $(GRBG) #; rm -r -v $(GRBGD)
 
 
