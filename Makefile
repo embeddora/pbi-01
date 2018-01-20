@@ -29,10 +29,8 @@
 
 export CC=gcc
 
-BUILD_CURL= # it's good, but not now.
-
 #CFLAGS=-I./src  -I./stl   -ftemplate-depth=255  -fpermissive -Wno-deprecated   -lz -lc -lm -lrt -ldl -lpthread  -lcstdc++
-CFLAGS=-I./src  -I./stl   -ftemplate-depth=255  -fpermissive -Wno-deprecated   -lcstdc++        
+CFLAGS=-I./src  -I./stl   -ftemplate-depth=255  -fpermissive -Wno-deprecated 
 #
 # -std=c++11 -- not strictly needed, but let's have an exact standard 
 # defined firmly (at least for a while)
@@ -40,7 +38,7 @@ CFLAGS=-I./src  -I./stl   -ftemplate-depth=255  -fpermissive -Wno-deprecated   -
 # -fpermissive -- for <src/Scene> warningless compilation 
 #
 
-LDFLAGS= -lGL -lGLU -lglut                -lcstdc++  
+LDFLAGS= -lGL -lGLU -lglut      
 
 # -g debug symbols (to explore dumped core, for instance)
 
@@ -54,15 +52,7 @@ GRBG=./src/*.o ./src/*~   src/unimp/*.o src/unimp/*~             ./*.o ./*~
 OBJS=src/unimp/unimp.o        src/AseFile.o src/Camera.o  src/Engine.o src/Errors.o src/Font.o src/Frustum.o src/Input.o src/Light.o src/LightSystem.o src/Manager.o src/Material.o src/Math.o src/Mesh.o src/Object3D.o src/Physic.o src/PhysicObject.o src/RenderObject.o src/Scene.o src/Settings.o src/Texture.o src/Types.o  \
 src/Timer.o   src/File.o  src/GLLight.o  src/Render.o  src/Console.o   src/Window.o   src/Redraw.o  
 
-SRCS=src/AseFile.cpp src/Camera.cpp  src/Engine.cpp src/Errors.cpp src/Frustum.cpp src/Input.cpp src/Light.cpp src/LightSystem.cpp src/Manager.cpp src/Material.cpp src/Math.cpp src/Mesh.cpp src/Object3D.cpp src/Physic.cpp src/PhysicObject.cpp src/RenderObject.cpp src/Scene.cpp src/Settings.cpp src/Texture.cpp src/Types.cpp  \
-src/Timer.cpp   src/File.cpp  src/GLLight.cpp  src/Render.cpp  src/Console.cpp   src/Window.cpp   src/Redraw.cpp  src/Sound.cpp
-
-
-
-
 # probs: src/Sound.o	-- reine Windows Sache, muss man vollkommen ersetzen
-
-# a store: src/AseFile.o src/Camera.o src/Console.o src/Engine.o src/Errors.o src/File.o src/Font.o src/Frustum.o src/GLLight.o src/Input.o src/Light.o src/LightSystem.o src/Manager.o src/Material.o src/Math.o src/Mesh.o src/Object3D.o src/Physic.o src/PhysicObject.o src/Render.o src/RenderObject.o src/Scene.o src/Settings.o src/Sound.o src/Texture.o src/Timer.o src/Types.o src/Window.o src/_main.o
 
 CC=$(PREFIX)gcc
 
@@ -76,13 +66,8 @@ all:	_main $(OBJS)
 	$(CPP) $(CFLAGS)  -c -o $@ $<
 
 
-
-
-
 _main: $(OBJS)
 	$(CPP) $(LDLAGS) $(OBJS) -lGL -lGLU -lglut      -lm  -lrt  -ldl -lc  -o $@
-
-#	$(LD) $(LDLAGS)  $(OBJS)   -o $@   -lpthread  -lm  -lrt  -ldl -lc -lcurl
 
 clean:
 	rm $(GRBG) ; rm -r -v $(GRBGD)
