@@ -31,14 +31,13 @@ CPPFLAGS=-I./src  -I./stl  -fpermissive -Wno-deprecated
 #
 # -Wno-deprecated -- to disable this: /usr/include/c++/4.8/backward/backward_warning.h:32:2: warning: #warning This file includes at least one deprecated or antiquated header which may be removed without further notice at a future date. Please use a non-deprecated interface with equivalent functionality instead. For a listing of replacement headers and interfaces, consult the file backward_warning.h. To disable this warning use -Wno-deprecated. [-Wcpp]
 
-LDFLAGS= -lGL -lGLU -lglut
-
+LDFLAGS=-lGL -lGLU -lglut
 
 OBJS=src/unimp/unimp.o        src/AseFile.o src/Camera.o  src/Engine.o src/Errors.o src/Font.o src/Frustum.o src/Input.o src/Light.o src/LightSystem.o src/Manager.o src/Material.o src/Math.o src/Mesh.o src/Object3D.o src/Physic.o src/PhysicObject.o src/RenderObject.o src/Scene.o src/Settings.o src/Texture.o src/Types.o  \
 src/Timer.o   src/File.o  src/GLLight.o  src/Render.o  src/Console.o   src/Window.o   src/Quaternion.o   src/Redraw.o  
-
 # probs: src/Sound.o	-- reine Windows Sache, muss man vollkommen ersetzen
 
+# Not cross-compiling till instance for <Linux/i585> platform is ready
 PREFIX=
 
 CC=$(PREFIX)gcc
@@ -49,7 +48,7 @@ LD=$(PREFIX)ld
 
 TARGET=_main
 
-all:	$(TARGET) $(OBJS)
+all:	$(OBJS) $(TARGET)
 
 %.o: %.cpp 
 	$(CPP) $(CPPFLAGS)  -c -o $@ $<
@@ -59,7 +58,7 @@ all:	$(TARGET) $(OBJS)
 
 
 _main: $(OBJS)
-	$(CPP) $(LDLAGS) $(OBJS) -lGL -lGLU -lglut      -lm  -lrt  -ldl -lc  -o $@
+	$(CPP)  $(OBJS)       -o $@  $(LDFLAGS)
 
 GRBG=./src/*.o ./src/*~   src/unimp/*.o src/unimp/*~       $(TARGET)          ./*.o ./*~
 
